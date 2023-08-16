@@ -14,9 +14,9 @@ export default function DashboardRough() {
   }
 
   return (
-    <div className='grid grid-cols-[15vw_85vw]'>
+    <div className='w-full'>
       <Navbar/>
-      <div>
+      <div className='ml-[15vw] w-[85vw]'>
         <div>Dashboard</div>
         <button onClick={getCategories}>Get Categories</button>
         <div>
@@ -27,8 +27,10 @@ export default function DashboardRough() {
             )
           })
           :
-          <></>
-          }
+          <>
+
+          </>
+        }
         </div>
       </div>
     </div>

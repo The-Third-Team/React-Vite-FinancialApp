@@ -1,11 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import * as usersService from "../../utilities/users-service"
+import PageHeader from '../PageHeader/PageHeader';
 
+import { AuthContext } from '../../pages/App/App'
 
 export default function LoginForm() {
 
+    const { user, setUser } = useContext(AuthContext)
   const [credentials, setCredentials] = useState({
-    "username": "",
+    "email": "",
     "password": ""
   })
 
@@ -15,48 +18,56 @@ export default function LoginForm() {
       setCredentials({...credentials, [evt.target.name]: evt.target.value})
   }
 
-  async function handleSubmit(evt){
+  async function handleLogin(evt){
       evt.preventDefault()
       try{
           const user = await usersService.login(credentials)
-          console.log(user)
-          
+          setUser(user)
       }catch{
           setErrorMsg("Login failed, try again")
       }
 
   }
+
   return (
 
-      <>
-          <div
-              className=''>
-          <form
-              autoComplete="off"
-              onSubmit={handleSubmit}
-          >
-              <label>Username</label>
-              <input
-                  type="text"
-                  name="username"
-                  placeholder="username@email.com"
-                  value={credentials.username}
-                  onChange={handleChange}
-                  ></input>
-              <label>Password</label>
-              <input
-                  type="text"
-                  name="username"
-                  value={credentials.password}
-                  onChange={handleChange}
-              ></input>
+      <><div
+      className="flex flex-col justify-center items-center ">
+      <div className='w-[100px] h-[100px] bg-red-200 rounded-[50%] mt-8'>
+
+      </div>
+      <PageHeader>Welcome Back!</PageHeader>
+      <form
+        className="flex flex-col justify-center items-center"
+        onSubmit={handleLogin}>
+              <div
+                  className="m-2 mt-16">
+                  <input
+                      type="email"
+                      name="email"
+                      placeholder="E-mail"
+                      value={credentials.email}
+                      onChange={handleChange}
+                      className="border-gray-400 border-2 p-1 rounded-[4px] w-60"
+                      ></input>
+              </div>  
+              <div
+                className="m-2">
+                <input
+                    type="password"
+                    name="password"
+                    value={credentials.password}
+                    onChange={handleChange}
+                    placeholder="Password"
+                    className='border-gray-400 border-2 p-1 rounded-[4px] w-60'
+                />
+              </div>
               <button
                   type="submit"
-                  className="p-2 border-black border-[.1vmin] ml-2"
-                  >Log In</button>
+                  className="border-gray-400 border-2 mt-3 p-2 rounded-[4px]"
+                  >Log in</button>
           </form>
-          </div>
-          <div>LoginPage</div>
+      </div>
       </>
   )
 }
