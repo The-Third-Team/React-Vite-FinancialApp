@@ -9,6 +9,7 @@ import * as usersService from '../../utilities/users-service'
 import './App.css'
 import BudgetOnboardingPage from '../BudgetOnboardingPage/BudgetOnboardingPage';
 import DashboardRough from '../Dashboard/DashboardRough';
+import BudgetOverviewPage from '../BudgetOverviewPage/BudgetOverviewPage';
 
 export const AuthContext = createContext();
 
@@ -25,6 +26,7 @@ export default function App() {
             <Routes>
                 <Route path="/" element={<Dashboard />}/>
                 <Route path="/budget/:groupID" element={<BudgetOnboardingPage />}/>
+                <Route path="/budget/" element={<BudgetOverviewPage />}/>
             </Routes>
           </>
           :
