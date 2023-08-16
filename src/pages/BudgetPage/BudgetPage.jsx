@@ -28,7 +28,6 @@ import BudgetOnboardingPage from '../BudgetOnboardingPage/BudgetOnboardingPage'
 //   10       | Movies        | Movies related transaction        | Entertainment
 //   11       | Streaming     | Streaming related transaction     | Entertainment
 //   12       | Activities    | Activities related transaction    | Entertainment
-//   13       | Restaurant    | Restaurant related transaction    | Food & Dining
 
 export default function BudgetPage() {
 
