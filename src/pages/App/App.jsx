@@ -7,7 +7,7 @@ import LoginSignupPage from '../LoginSignupPage/LoginSignupPage';
 // import reactLogo from '../assets/react.svg'
 // import viteLogo from '/vite.svg'
 import './App.css'
-import BudgetOnboarding from '../BudgetOnboarding/BudgetOnboarding';
+import BudgetOnboardingPage from '../BudgetOnboardingPage/BudgetOnboardingPage';
 
 export const AuthContext = createContext();
 
@@ -23,7 +23,7 @@ export default function App() {
         <>
           <Routes>
               <Route path="/" element={<Dashboard/>}/>
-              <Route path="/budget/:id" element={<BudgetOnboarding />}/>
+              <Route path="/budget/:groupID" element={<BudgetOnboardingPage />}/>
           </Routes>
         </>
         :
