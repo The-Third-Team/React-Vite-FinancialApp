@@ -1,5 +1,4 @@
 import { getToken } from "./users-service"
-const BASE_URL = "http://localhost:3001"
 
 export default async function sendRequest(url, method="GET", payload=null){
     const options = {method};
@@ -15,7 +14,7 @@ export default async function sendRequest(url, method="GET", payload=null){
         options.headers.Authorization = `Bearer ${token}`
     }
 
-    const res = await(fetch(`${BASE_URL}/url`, options))
+    const res = await(fetch(url, options))
     if (res.ok) return res.json();
     throw new Error('Bad Request');
 }
