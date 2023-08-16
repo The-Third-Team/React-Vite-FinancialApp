@@ -10,41 +10,174 @@ import PageHeader from '../../components/PageHeader/PageHeader'
 
 const Transactions = [
   {
+    accountID: 1,
     date: 'Aug 13',
     merchant: '7-11',
     amount: '1234.00'
   },
   {
+    accountID: 1,
     date: 'Aug 13',
     merchant: '7-11',
     amount: '1234.00'
   },
   {
+    accountID: 1,
     date: 'Aug 13',
     merchant: '7-11',
     amount: '1234.00'
   },
   {
+    accountID: 2,
     date: 'Aug 13',
+    merchant: 'Walmart',
+    amount: '200.00'
+  },
+  {
+    accountID: 2,
+    date: 'Aug 13',
+    merchant: 'Walmart',
+    amount: '200.00'
+  },
+  {
+    accountID: 2,
+    date: 'Aug 13',
+    merchant: 'Walmart',
+    amount: '200.00'
+  },
+  {
+    accountID: 3,
+    date: 'Aug 13',
+    merchant: 'CVS',
+    amount: '100.00'
+  },
+  {
+    accountID: 3,
+    date: 'Aug 13',
+    merchant: 'CVS',
+    amount: '100.00'
+  },
+  {
+    accountID: 3,
+    date: 'Aug 13',
+    merchant: 'CVS',
+    amount: '100.00'
+  },
+  {
+    accountID: 1,
+    date: 'Aug 12',
     merchant: '7-11',
     amount: '1234.00'
   },
   {
-    date: 'Aug 13',
+    accountID: 1,
+    date: 'Aug 12',
     merchant: '7-11',
     amount: '1234.00'
   },
   {
-    date: 'Aug 13',
+    accountID: 1,
+    date: 'Aug 12',
     merchant: '7-11',
     amount: '1234.00'
   },
   {
-    date: 'Aug 13',
+    accountID: 2,
+    date: 'Aug 12',
+    merchant: 'Walmart',
+    amount: '200.00'
+  },
+  {
+    accountID: 2,
+    date: 'Aug 12',
+    merchant: 'Walmart',
+    amount: '200.00'
+  },
+  {
+    accountID: 2,
+    date: 'Aug 12',
+    merchant: 'Walmart',
+    amount: '200.00'
+  },
+  {
+    accountID: 3,
+    date: 'Aug 12',
+    merchant: 'CVS',
+    amount: '100.00'
+  },
+  {
+    accountID: 3,
+    date: 'Aug 12',
+    merchant: 'CVS',
+    amount: '100.00'
+  },
+  {
+    accountID: 3,
+    date: 'Aug 12',
+    merchant: 'CVS',
+    amount: '100.00'
+  },
+  {
+    accountID: 1,
+    date: 'Aug 10',
     merchant: '7-11',
     amount: '1234.00'
-  }
+  },
+  {
+    accountID: 1,
+    date: 'Aug 10',
+    merchant: '7-11',
+    amount: '1234.00'
+  },
+  {
+    accountID: 1,
+    date: 'Aug 10',
+    merchant: '7-11',
+    amount: '1234.00'
+  },
+  {
+    accountID: 2,
+    date: 'Aug 10',
+    merchant: 'Walmart',
+    amount: '200.00'
+  },
+  {
+    accountID: 2,
+    date: 'Aug 10',
+    merchant: 'Walmart',
+    amount: '200.00'
+  },
+  {
+    accountID: 2,
+    date: 'Aug 10',
+    merchant: 'Walmart',
+    amount: '200.00'
+  },
+  {
+    accountID: 3,
+    date: 'Aug 10',
+    merchant: 'CVS',
+    amount: '100.00'
+  },
+  {
+    accountID: 3,
+    date: 'Aug 10',
+    merchant: 'CVS',
+    amount: '100.00'
+  },
+  {
+    accountID: 3,
+    date: 'Aug 10',
+    merchant: 'CVS',
+    amount: '100.00'
+  },
 ]
+
+const AccountIDs = {
+  CHECKING: 1,
+  SAVINGS: 2,
+  CREDIT: 3
+}
 
 export default function Dashboard() {
 
@@ -52,7 +185,12 @@ export default function Dashboard() {
 
   const [searchTerms, setSearchTerms] = useState('')
 
-  const [focusedAccount, setFocusedAccount] = useState('')
+  const [selectedAccount, setSelectedAccount] = useState('')
+
+  const [shownTransactions, setShownTransactions] = useState()
+
+  // formats dummy transaction data into corresponding dates and accounts
+  const allTransactionDates = new Set(Transactions.map((transaction) => transaction.date))
 
   // we probably dont need this on this page
   const getCategories = async () => {
@@ -61,6 +199,7 @@ export default function Dashboard() {
     console.log(fetchedCategories)
   }
 
+  // stubbed this up in case we need it
   const getTransactionsByAccount = async (account) => {
     return
     // const fetchedTransactions = await transactionsAPI.getTransactionsByAccount(accountID)
@@ -68,12 +207,12 @@ export default function Dashboard() {
   }
 
   const handleClickAccount = (account) => {
-    setFocusedAccount(account)
+    setSelectedAccount(account)
     // ** This is an option if we want all accounts to be collapsable
-    // if (focusedAccount !== account) {
-    //   setFocusedAccount(account)
+    // if (selectedAccount !== account) {
+    //   setSelectedAccount(account)
     // } else {
-    //   setFocusedAccount('')
+    //   setSelectedAccount('')
     // }
   }
 
@@ -87,9 +226,9 @@ export default function Dashboard() {
           <PageHeader>YOUR ACCOUNTS</PageHeader>
 
           <div className='flex flex-col items-center w-full h-[24vh]'> 
-            <AccountCard accountName={'CHECKING'} accountBalance={500} handleClickAccount={handleClickAccount} isFocused={focusedAccount === 'CHECKING'}/>
-            <AccountCard accountName={'SAVINGS'} accountBalance={2000} handleClickAccount={handleClickAccount} isFocused={focusedAccount === 'SAVINGS'}/>
-            <AccountCard accountName={'CREDIT'} accountBalance={1200} handleClickAccount={handleClickAccount} isFocused={focusedAccount === 'CREDIT'}/>
+            <AccountCard accountName={'CHECKING'} accountBalance={500} handleClickAccount={handleClickAccount} isSelected={selectedAccount === 'CHECKING'}/>
+            <AccountCard accountName={'SAVINGS'} accountBalance={2000} handleClickAccount={handleClickAccount} isSelected={selectedAccount === 'SAVINGS'}/>
+            <AccountCard accountName={'CREDIT'} accountBalance={1200} handleClickAccount={handleClickAccount} isSelected={selectedAccount === 'CREDIT'}/>
           </div>
 
           <div className='flex w-full justify-center'>
@@ -111,9 +250,12 @@ export default function Dashboard() {
 
         {/* Transaction history */}
         {/* Need to figure out why this isn't scrollable */}
-        <div className='h-auto'>
-          <TransactionDay />
-          <TransactionItem />
+        {/* <div className='h-auto'>
+          {allTransactionDates.map((date) => {
+            Transactions.filter((transaction) => transaction.date === date && transaction.accountID === selectedAccount)
+          })}
+        </div> */}
+        <div>
           <TransactionDay />
           <TransactionItem />
           <TransactionDay />
