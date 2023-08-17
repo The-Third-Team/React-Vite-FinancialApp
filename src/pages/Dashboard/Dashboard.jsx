@@ -234,7 +234,7 @@ export default function Dashboard() {
           <div className='flex w-full justify-center'>
             <AccountWidget name={'Manage Card'} linkTo={''}/>
             <AccountWidget name={'Statements'} linkTo={''}/>
-            <AccountWidget name={'Budget Plan'} linkTo={'/budget/1'}/>
+            <AccountWidget name={'Budget Plan'} linkTo={'/budget'}/>
           </div>
 
           <div className='flex justify-center w-full my-4'>
