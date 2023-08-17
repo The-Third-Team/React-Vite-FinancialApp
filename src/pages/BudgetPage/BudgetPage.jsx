@@ -70,7 +70,7 @@ export default function BudgetPage({categories}) {
         const res = await budgetsAPI.createUserBudget(
             {budgets: budgetsToBeCreated}
         )
-        console.log(res)
+        setBudget(res)
     }
 
     const updateUserBudget = async (updatedBudgetData) => {
