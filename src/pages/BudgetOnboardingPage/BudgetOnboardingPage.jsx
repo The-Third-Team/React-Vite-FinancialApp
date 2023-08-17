@@ -1,65 +1,60 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import BudgetSubcategoryField from '../../components/BudgetSubcategoryField/BudgetSubcategoryField';
-import PageHeader from '../../components/PageHeader/PageHeader';
 
 import BudgetOnboardingGroup from '../../components/BudgetOnboardingGroup/BudgetOnboardingGroup';
-import Loading from '../Loading/Loading'
 
-import * as categoriesAPI from '../../utilities/categories-api'
+export default function BudgetOnboardingPage({categories, createUserBudget}) {
 
-const categoryObj = {
-    1: 'Bills',
-    2: 'Food & Dining',
-    3: 'Shopping',
-    4: 'Entertainment'
-}
+    const [budgetData, setBudgetData] = useState({})
 
-const emptyBudget = {
-    'Restaurant': '',
-    'Grocery': '',
-    'Coffee Shops': '',
-    'Clothing': '',
-    'Jewelry': '',
-    'Rent/Mortgage': '',
-    'Car': '',
-    'Insurance': '',
-    'Utilities': '',
-    'Movies': '',
-    'Streaming': '',
-    'Activities': '',
-    'Restaurant': '',
+    const categoryGroups = ['Bills', 'Food & Dining', 'Shopping', 'Entertainment']
 
-}
+    const [currentGroupIdx, setCurrentGroupIdx] = useState(0)
 
-export default function BudgetOnboardingPage() {
-
-    // A method of cycling through all categories programatically using useParams
-    const { groupID } = useParams();
-
-    const [categories, setCategories] = useState([])
+    const [currentGroupCategories, setCurrentGroupCategories] = useState([])
 
     useEffect(() => {
-        getCategories()
+        initializeEmptyBudget()
+        getGroupCategories(currentGroupIdx)
+        console.log('budgetData: ', budgetData)
     }, [])
 
-    const getCategories = async () => {
-        const fetchedCategories = await categoriesAPI.getAllCategories();
-        setCategories(fetchedCategories)
-        console.log(fetchedCategories)
+    useEffect(() => {
+        getGroupCategories(currentGroupIdx)
+    }, [currentGroupIdx])
+
+
+    const getGroupCategories = () => {
+        console.log('categories: ', categories)
+        const groupCategories = categories.filter((category) => category.group === categoryGroups[currentGroupIdx])
+        console.log('categoryGroups: ', groupCategories)
+        setCurrentGroupCategories(groupCategories)
     }
 
-    const getSubcategoriesByGroup = (groupID) => {
-        return categories.filter((category) => category.group === categoryObj[groupID])
+    const initializeEmptyBudget = () => {
+        let i = 0
+        const initialBudgetData = {}
+        console.log(categories)
+        for (const category of categories) {
+            initialBudgetData[category.name] = ''
+            i++
+        }
+        console.log(initialBudgetData)
+        setBudgetData(initialBudgetData)
+    }
+
+    const editBudgetData = (field, amount) => {
+        setBudgetData({...budgetData, [field]: amount})
+        console.log('budgetData: ', budgetData)
+    }
+
+    const updateGroupIdx = (value) => {
+        const nextIdx = currentGroupIdx + value;
+        setCurrentGroupIdx(nextIdx)
     }
 
   return (
     <>
-    {categories.length > 0 ?
-    <BudgetOnboardingGroup groupID={groupID} groupName={categoryObj[groupID]} subCategories={() => getSubcategoriesByGroup(groupID)}/>
-    :
-    <Loading />
-    }
+        <BudgetOnboardingGroup budgetData={budgetData} editBudgetData={editBudgetData} createUserBudget={createUserBudget} categories={currentGroupCategories} currentGroupIdx={currentGroupIdx} groupName={categoryGroups[currentGroupIdx]} updateGroupIdx={updateGroupIdx}/>
     </>
   )
 }

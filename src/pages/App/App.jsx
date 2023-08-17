@@ -1,15 +1,15 @@
-import { useState, createContext } from 'react'
+import { useState, createContext, useEffect } from 'react'
 import { Routes, Route } from "react-router-dom"
 import Dashboard from '../Dashboard/Dashboard'
 import LoginSignupPage from '../LoginSignupPage/LoginSignupPage';
-import * as usersService from '../../utilities/users-service'
+import * as usersService from '../../utilities/users-service';
+import * as categoriesAPI from '../../utilities/categories-api';
 
 // import reactLogo from '../assets/react.svg'
 // import viteLogo from '/vite.svg'
 import './App.css'
-import BudgetOnboardingPage from '../BudgetOnboardingPage/BudgetOnboardingPage';
-import DashboardRough from '../Dashboard/DashboardRough';
 import BudgetOverviewPage from '../BudgetOverviewPage/BudgetOverviewPage';
+import BudgetPage from '../BudgetPage/BudgetPage';
 
 export const AuthContext = createContext();
 
@@ -17,6 +17,18 @@ export const AuthContext = createContext();
 export default function App() {
   const [user, setUser] = useState(usersService.getUser());
   const [count, setCount] = useState(0);
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+    getCategories();
+    // getUserBudget();
+  }, [])
+
+  const getCategories = async () => {
+    const fetchedCategories = await categoriesAPI.getAllCategories();
+    console.log(fetchedCategories)
+    setCategories(fetchedCategories)
+  }
 
   return (
     <>
@@ -25,8 +37,7 @@ export default function App() {
           <>
             <Routes>
                 <Route path="/" element={<Dashboard />}/>
-                <Route path="/budget/:groupID" element={<BudgetOnboardingPage />}/>
-                <Route path="/budget/" element={<BudgetOverviewPage />}/>
+                <Route path="/budget" element={<BudgetPage categories={categories}/>}/>
             </Routes>
           </>
           :

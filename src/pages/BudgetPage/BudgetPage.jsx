@@ -3,6 +3,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import { AuthContext } from '../App/App'
 
 import * as budgetsAPI from '../../utilities/budgets-api'
+import * as categoriesAPI from '../../utilities/categories-api'
 
 import BudgetOverviewPage from '../BudgetOverviewPage/BudgetOverviewPage'
 import BudgetOnboardingPage from '../BudgetOnboardingPage/BudgetOnboardingPage'
@@ -28,8 +29,9 @@ import BudgetOnboardingPage from '../BudgetOnboardingPage/BudgetOnboardingPage'
 //   10       | Movies        | Movies related transaction        | Entertainment
 //   11       | Streaming     | Streaming related transaction     | Entertainment
 //   12       | Activities    | Activities related transaction    | Entertainment
+//   13       | Restaurant    | Restaurant related transaction    | Food & Dining
 
-export default function BudgetPage() {
+export default function BudgetPage({categories}) {
 
     const { user, setUser } = useContext(AuthContext)
 
@@ -38,40 +40,52 @@ export default function BudgetPage() {
 
     // if user does not have a budget, immediately load the budget onboarding page
 
-    useEffect(() => {
-        async function getUserBudget() {
-            try {
-                const userBudget = await budgetsAPI.getUserBudget(user.id)
-                if (userBudget.length === 0) {
+    const getUserBudget = async () => {
+        try {
+            const userBudget = await budgetsAPI.getUserBudget(user.id)
+            if (userBudget.length === 0) {
                 setNewBudget(true)
-                }
-                setBudget(userBudget)
-            } catch (error) {
-                console.log(error)
             }
+            console.log(userBudget)
+            setBudget(userBudget)
+        } catch (error) {
+            console.log(error)
         }
-        getUserBudget();
-    }, [])
+    }
   
     const createUserBudget = async (budgetData) => {
-        const createdBudget = await budgetsAPI.createUserBudget(user.id, budgetData);
-        console.log(createdBudget);
-        setBudget(createdBudget);
+        console.log(budgetData)
+        const budgetsToBeCreated = []
+        for (let key in budgetData) {
+            if (!budgetData[key]) {
+                budgetData[key] = 0
+            }
+            const individualBudgetData = {
+                userId: user.id,
+                name: key,
+                budget: parseInt(budgetData[key])
+            }
+            budgetsToBeCreated.push(individualBudgetData)
+        }
+        const res = await budgetsAPI.createUserBudget(
+            {budgets: budgetsToBeCreated}
+        )
+        console.log(res)
     }
 
     const updateUserBudget = async (updatedBudgetData) => {
         const updatedBudget = await budgetsAPI.updateUserBudget(user.id, updatedBudgetData);
-        console.log(createdBudget);
+        console.log(updatedBudget);
         setBudget(updatedBudget);
     }
 
 
   return (
     <>
-    {userBudget ?
-    <BudgetOverviewPage budget={budget}/>
-    :
-    <BudgetOnboardingPage budget={budget} createUserBudget={createUserBudget} updateUserBudget={updateUserBudget}/>
+    {budget.length > 0 ?
+        <BudgetOverviewPage budget={budget}/>
+        :
+        <BudgetOnboardingPage budget={budget} categories={categories} createUserBudget={createUserBudget}/>
     }
     </>
   )
