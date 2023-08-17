@@ -40,13 +40,17 @@ export default function BudgetPage({categories}) {
 
     // if user does not have a budget, immediately load the budget onboarding page
 
+    useEffect(() => {
+        getUserBudget()
+    }, [])
+
     const getUserBudget = async () => {
         try {
             const userBudget = await budgetsAPI.getUserBudget(user.id)
+            console.log(userBudget)
             if (userBudget.length === 0) {
                 setNewBudget(true)
             }
-            console.log(userBudget)
             setBudget(userBudget)
         } catch (error) {
             console.log(error)
