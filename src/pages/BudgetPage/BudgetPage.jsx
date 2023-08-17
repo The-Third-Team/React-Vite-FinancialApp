@@ -51,6 +51,7 @@ export default function BudgetPage({categories}) {
             if (userBudget.length === 0) {
                 setNewBudget(true)
             }
+            //console.log(userBudget)
             setBudget(userBudget)
         } catch (error) {
             console.log(error)
@@ -86,7 +87,8 @@ export default function BudgetPage({categories}) {
 
   return (
     <>
-    {budget.length == 0 ?
+    {/* budget.length == 0  */}
+    {true ?
         <BudgetOverviewPage budget={budget}/>
         :
         <BudgetOnboardingPage budget={budget} categories={categories} createUserBudget={createUserBudget}/>
