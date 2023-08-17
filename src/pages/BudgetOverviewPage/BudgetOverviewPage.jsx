@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react'
-import BudgetOverviewComp from '../../components/BudgetOverviewComp/BudgetOverviewComp'
+import BudgetComp from '../../components/BudgetComp/BudgetComp'
 import BudgetGroup from '../BudgetGroup/BudgetGroup'
 import Navbar from '../../components/NavBar/Navbar'
 import PageHeader from '../../components/PageHeader/PageHeader'
@@ -18,7 +18,15 @@ export default function BudgetOverviewPage() {
     async function getCategoryTypes(){
       try{ 
         const categoryTypes = await categoriesAPI.getAllCategories();
-        setCategories(categoryTypes)
+        let categoryObj = {}
+        for (let category of categoryTypes){
+            if (Object.hasOwn(categoryObj, category.group)){
+              categoryObj[category.group].push(category.id)
+            } else{
+              categoryObj[category.group] = [category.id]  
+            }
+        }
+        setCategories(categoryObj)
       } catch(err){
         console.log(err)
       }
@@ -27,7 +35,16 @@ export default function BudgetOverviewPage() {
     async function getUserBudgets(){
       try{
           const budgets = await budgetsAPI.getUserBudget(user.id);
-          setUserBudgets(budgets)
+          // 
+          const budgetObj = {}
+          for (let b of budgets){
+              if (Object.hasOwn(budgetObj, b.group)){
+                budgetObj[b.group].push(b)
+              } else {
+                budgetObj[b.group] = [b]
+              }
+          }
+          setUserBudgets(budgetObj)
       }catch(err){
         console.log(err)
       }
@@ -37,6 +54,7 @@ export default function BudgetOverviewPage() {
     getUserBudgets()
   }, [])
   console.log(categories)
+  console.log(userBudgets)
 
   return (
     <>
@@ -65,21 +83,30 @@ export default function BudgetOverviewPage() {
                 </div>
             </div>
 
-
-            <div
-              className="grid grid-cols-6 justify-between">
-                <div className="col-span-2">Expenses</div>
-                <div className="col-span-2">Budget</div>
-                <div className="col-span-1">Remaining</div>
+            <div className="w-full">
+              <div
+                className="grid grid-cols-3  px-2 justify-items-end font-bold">
+                  <div className="col-span-1">Expenses</div>
+                  <div className="col-span-1">Budget</div>
+                  <div className="col-span-1">Remaining</div>
+              </div>
             </div>
 
         </div>
             <div>
-              {
+              {/* {categories.map((category, idx) => 
+                <BudgetGroup userBudgets={userBudgets} key={idx} />
+                )} */}
+
+              {Object.entries(userBudgets).map(([key, value]) => 
+                <BudgetGroup group={value} groupName={key} userBudgets={userBudgets} key={key} />
+                )}
+              
+              {/* {
                 userBudgets.map((b, idx) => 
-                  <BudgetOverviewComp key={idx} budget={b}/>
+                  <BudgetComp key={idx} budget={b}/>
                 )
-              }
+              } */}
             </div>
 
       </div>
