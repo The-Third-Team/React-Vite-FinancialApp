@@ -8,6 +8,7 @@ import * as categoriesAPI from "../../utilities/categories-api"
 import { AuthContext } from '../App/App'
 import * as accountsAPI from "../../utilities/accounts-api"
 import IncomeDisplayComp from '../IncomeDisplayComp/IncomeDisplayComp'
+import PieDataChart from '../../components/PieDataChart/PieDataChart'
 
 
 export default function BudgetOverviewPage() {
@@ -77,15 +78,30 @@ export default function BudgetOverviewPage() {
     getUserBudgets()
   }, [])
 
+  const pieData = []
+
+  Object.entries(userBudgets).map(([key, value]) => {
+    const data = {
+      title: key,
+      value: 0,
+      color: '#845EC2'
+    }
+    value.forEach(category => {
+      data.value += category.budget
+    });
+    pieData.push(data);
+  });
+
   return (
     <>
       <Navbar/>
       <div className='ml-[15vw] w-[85vw]'>
         <div className='flex flex-col items-center w-[85vw]'>
           <PageHeader>YOUR BUDGET</PageHeader>
-            <div 
-              className="border-2 border-gray-100 rounded-md p-10"
-                >Flowbite pie chart here</div>
+            <div className="border-2 border-gray-100 rounded-md p-10">
+            <PieDataChart data={ pieData }/>
+
+            </div>
 
             <div
                 className="flex font-bold"
