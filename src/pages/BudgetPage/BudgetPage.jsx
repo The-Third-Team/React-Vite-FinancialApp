@@ -86,7 +86,7 @@ export default function BudgetPage({categories}) {
 
   return (
     <>
-    {budget.length > 0 ?
+    {budget.length == 0 ?
         <BudgetOverviewPage budget={budget}/>
         :
         <BudgetOnboardingPage budget={budget} categories={categories} createUserBudget={createUserBudget}/>
