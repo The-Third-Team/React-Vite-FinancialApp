@@ -7,6 +7,7 @@ import * as budgetsAPI from "../../utilities/budgets-api"
 import * as categoriesAPI from "../../utilities/categories-api"
 import { AuthContext } from '../App/App'
 import * as accountsAPI from "../../utilities/accounts-api"
+import IncomeDisplayComp from '../IncomeDisplayComp/IncomeDisplayComp'
 
 
 export default function BudgetOverviewPage() {
@@ -15,8 +16,19 @@ export default function BudgetOverviewPage() {
   const [userBudgets, setUserBudgets] = useState([])
   const [income, setIncome] = useState([])
 
+  // 'filterIncome()' returns an array with current month's income 
   const filterIncome = (incomeArray) => {
-    incomeArray.filter()
+    const currentDate = new Date()
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentYear = currentDate.getYear();
+
+    const filteredIncomeArr = incomeArray.filter((income) => {
+      const createdDate = new Date(income.date)
+      const createdMonth = createdDate.getMonth() + 1;
+      const createdYear = createdDate.getYear();
+      return createdMonth === currentMonth && createdYear === currentYear
+    })
+    return filteredIncomeArr
   }
 
   useEffect(() => {
@@ -53,6 +65,8 @@ export default function BudgetOverviewPage() {
                 return category
               }).then((categoryId) => {
                 return accountsAPI.getUserIncome(user.id, categoryId)
+              }).then((incomeArr) => {
+                return filterIncome(incomeArr)
               }).then((response)=>{
                 setIncome(response)
               }).catch((error) => {
@@ -74,16 +88,16 @@ export default function BudgetOverviewPage() {
                 >Flowbite pie chart here</div>
 
             <div
-                className="flex"
+                className="flex font-bold"
                 >Income</div>
             <div
-              className="border-2 border-gray-100 rounded-md p-5"
+              className="border-2 border-gray-100 rounded-md p-5 m-2"
               >
                 <div
                   className="flex flex-row justify-between ">
-                    {income.map((income) => {
-
-                    })}
+                    {income.map((income, idx) => 
+                      <IncomeDisplayComp income={income} key={idx}/>
+                    )}
                     {/* <div
                         className="text-gray-300 text-xs">
                         {bankName}</div>
