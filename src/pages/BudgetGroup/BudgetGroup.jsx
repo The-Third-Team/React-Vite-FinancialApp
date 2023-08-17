@@ -20,7 +20,7 @@ export default function BudgetGroup({ group, groupName, userBudgets }) {
             <div className="py-1">
                 <div className="text-md font-bold">
                   {groupName}
-                  <EditField category={ groupName } data={ data } />
+                  <EditField category={ groupName } data={ data } onSave={handleOnSave} />
                 </div>
             </div>
             <div>

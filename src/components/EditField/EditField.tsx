@@ -42,7 +42,7 @@ const EditField = ({ category, data, onSave }: Properties) => {
                         </div>
                     )) }
                 </div>
-                <Button className={ 'w-full mt-5 bg-red-500' }>Save</Button>
+                <Button className={ 'w-full mt-5 bg-red-500' } onClick={() => onSave()}>Save</Button>
             </Modal.Body>
         </Modal>
         </>
