@@ -5,7 +5,7 @@ import { MdModeEditOutline } from 'react-icons/md';
 
 interface Expense {
     title: string,
-    amount: string
+    amount: number
 }
 
 interface Properties {
@@ -37,7 +37,7 @@ const EditField = ({ category, data, onSave }: Properties) => {
                         <div className={ 'flex justify-between w-full' } key={ index }>
                             <p className={ 'flex items-center' }>{ expense.title }</p>
                             <div>
-                                <input className={ 'max-w-[4rem] rounded text-center' } type="text" placeholder={ expense.amount } />
+                                <input className={ 'max-w-[4rem] rounded text-center' } type="text" placeholder={ expense.amount.toString() } />
                             </div>
                         </div>
                     )) }
