@@ -13,48 +13,54 @@ export default function BudgetOverviewPage() {
   const {user, setUser} = useContext(AuthContext)
 
   const [userBudgets, setUserBudgets] = useState([])
-  const [bankBalance, setUserBalance] = useState({})
-  const [bankName, setBankName] = useState("")
+  const [income, setIncome] = useState([])
+
+  const filterIncome = (incomeArray) => {
+    incomeArray.filter()
+  }
 
   useEffect(() => {
-    async function getUserBudgets(){
-      try{
-          const budgets = await budgetsAPI.getUserBudget(user.id);
-          // 
-          const budgetObj = {}
-          for (let b of budgets){
-              if (Object.hasOwn(budgetObj, b.group)){
-                budgetObj[b.group].push(b)
-              } else {
-                budgetObj[b.group] = [b]
+      // retrieves user's budget from budget model and saves as object ('budgetObj')
+      // to be read by react components
+      async function getUserBudgets(){
+          try{
+              const budgets = await budgetsAPI.getUserBudget(user.id);
+              const budgetObj = {}
+              for (let b of budgets){
+                  if (Object.hasOwn(budgetObj, b.group)){
+                    budgetObj[b.group].push(b)
+                  } else {
+                    budgetObj[b.group] = [b]
+                  }
               }
+              setUserBudgets(budgetObj)
+          }catch(err){
+            console.log(err)
           }
-          setUserBudgets(budgetObj)
-      }catch(err){
-        console.log(err)
       }
-    }
 
-    // async function getAccountBalance(){
-
-    //     // retrieves account number, and further retrieves user account balance
-    //     await accountsAPI.getUserAccountBalance(user.id)
-    //       .then((userAccountObject) => {
-    //         console.log(userAccountObject)
-    //         setBankName(userAccountObject.name)
-    //         return userAccountObject.accountNumber
-    //       }).then((accountNumber) => {
-    //         const accountBalance = accountsAPI.getUserBalance(accountNumber)
-    //         setUserBalance(accountBalance)
-    //       }).catch((error) => {
-    //         console.log(error)
-    //       })
-        
-
-    // }
-
+      // retrieves all categories to identify categoryId for 'income'
+      // then retrieves income information for user
+      async function getIncomeBalance(){
+          await categoriesAPI.getAllCategories()
+              .then((response)=>{
+                let category;
+                response.forEach((res) => {
+                  if (res.name === "Income"){
+                    category = res.id
+                  }
+                })
+                return category
+              }).then((categoryId) => {
+                return accountsAPI.getUserIncome(user.id, categoryId)
+              }).then((response)=>{
+                setIncome(response)
+              }).catch((error) => {
+                console.log(error)
+              })
+        }
+    getIncomeBalance()
     getUserBudgets()
-    // getAccountBalance()
   }, [])
 
   return (
@@ -75,6 +81,9 @@ export default function BudgetOverviewPage() {
               >
                 <div
                   className="flex flex-row justify-between ">
+                    {income.map((income) => {
+
+                    })}
                     {/* <div
                         className="text-gray-300 text-xs">
                         {bankName}</div>
