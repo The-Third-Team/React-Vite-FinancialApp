@@ -6,55 +6,91 @@ import PageHeader from '../../components/PageHeader/PageHeader'
 import * as budgetsAPI from "../../utilities/budgets-api"
 import * as categoriesAPI from "../../utilities/categories-api"
 import { AuthContext } from '../App/App'
+import * as accountsAPI from "../../utilities/accounts-api"
+import IncomeDisplayComp from '../IncomeDisplayComp/IncomeDisplayComp'
+import PieDataChart from '../../components/PieDataChart/PieDataChart'
 
 
 export default function BudgetOverviewPage() {
   const {user, setUser} = useContext(AuthContext)
 
   const [userBudgets, setUserBudgets] = useState([])
-  const [categories, setCategories] = useState([])
+  const [income, setIncome] = useState([])
+
+  // 'filterIncome()' returns an array with current month's income 
+  const filterIncome = (incomeArray) => {
+    const currentDate = new Date()
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentYear = currentDate.getYear();
+
+    const filteredIncomeArr = incomeArray.filter((income) => {
+      const createdDate = new Date(income.date)
+      const createdMonth = createdDate.getMonth() + 1;
+      const createdYear = createdDate.getYear();
+      return createdMonth === currentMonth && createdYear === currentYear
+    })
+    return filteredIncomeArr
+  }
 
   useEffect(() => {
-    async function getCategoryTypes(){
-      try{ 
-        const categoryTypes = await categoriesAPI.getAllCategories();
-        let categoryObj = {}
-        for (let category of categoryTypes){
-            if (Object.hasOwn(categoryObj, category.group)){
-              categoryObj[category.group].push(category.id)
-            } else{
-              categoryObj[category.group] = [category.id]  
-            }
-        }
-        setCategories(categoryObj)
-      } catch(err){
-        console.log(err)
-      }
-    }
-
-    async function getUserBudgets(){
-      try{
-          const budgets = await budgetsAPI.getUserBudget(user.id);
-          // 
-          const budgetObj = {}
-          for (let b of budgets){
-              if (Object.hasOwn(budgetObj, b.group)){
-                budgetObj[b.group].push(b)
-              } else {
-                budgetObj[b.group] = [b]
+      // retrieves user's budget from budget model and saves as object ('budgetObj')
+      // to be read by react components
+      async function getUserBudgets(){
+          try{
+              const budgets = await budgetsAPI.getUserBudget(user.id);
+              const budgetObj = {}
+              for (let b of budgets){
+                  if (Object.hasOwn(budgetObj, b.group)){
+                    budgetObj[b.group].push(b)
+                  } else {
+                    budgetObj[b.group] = [b]
+                  }
               }
+              setUserBudgets(budgetObj)
+          }catch(err){
+            console.log(err)
           }
-          setUserBudgets(budgetObj)
-      }catch(err){
-        console.log(err)
       }
-      
-    }
-    getCategoryTypes()
+
+      // retrieves all categories to identify categoryId for 'income'
+      // then retrieves income information for user
+      async function getIncomeBalance(){
+          await categoriesAPI.getAllCategories()
+              .then((response)=>{
+                let category;
+                response.forEach((res) => {
+                  if (res.name === "Income"){
+                    category = res.id
+                  }
+                })
+                return category
+              }).then((categoryId) => {
+                return accountsAPI.getUserIncome(user.id, categoryId)
+              }).then((incomeArr) => {
+                return filterIncome(incomeArr)
+              }).then((response)=>{
+                setIncome(response)
+              }).catch((error) => {
+                console.log(error)
+              })
+        }
+    getIncomeBalance()
     getUserBudgets()
   }, [])
-  console.log(categories)
-  console.log(userBudgets)
+
+  const pieData = []
+
+  Object.entries(userBudgets).map(([key, value]) => {
+    const data = {
+      title: key,
+      value: 0,
+      color: '#845EC2'
+    }
+    value.forEach(category => {
+      data.value += category.budget
+    });
+    pieData.push(data);
+  });
 
   return (
     <>
@@ -62,24 +98,28 @@ export default function BudgetOverviewPage() {
       <div className='ml-[15vw] w-[85vw]'>
         <div className='flex flex-col items-center w-[85vw]'>
           <PageHeader>YOUR BUDGET</PageHeader>
-            <div 
-              className="border-2 border-gray-100 rounded-md p-10"
-                >Flowbite pie chart here</div>
+            <div className="border-2 border-gray-100 rounded-md p-10">
+            <PieDataChart data={ pieData }/>
+
+            </div>
 
             <div
-                className="flex"
+                className="flex font-bold"
                 >Income</div>
             <div
-              className="border-2 border-gray-100 rounded-md p-5"
+              className="border-2 border-gray-100 rounded-md p-5 m-2"
               >
                 <div
                   className="flex flex-row justify-between ">
-                    <div
+                    {income.map((income, idx) => 
+                      <IncomeDisplayComp income={income} key={idx}/>
+                    )}
+                    {/* <div
                         className="text-gray-300 text-xs">
-                        MEADE PUBLICATIONS*MODE</div>
+                        {bankName}</div>
                     <div
                       className="text-xl font-bold"
-                      >$1,234</div>
+                      >${bankBalance}</div> */}
                 </div>
             </div>
 
@@ -94,19 +134,10 @@ export default function BudgetOverviewPage() {
 
         </div>
             <div>
-              {/* {categories.map((category, idx) => 
-                <BudgetGroup userBudgets={userBudgets} key={idx} />
-                )} */}
-
-              {Object.entries(userBudgets).map(([key, value]) => 
-                <BudgetGroup group={value} groupName={key} userBudgets={userBudgets} key={key} />
+              {Object.entries(userBudgets).map(([key, value], idx) => 
+                <BudgetGroup group={value} groupName={key} userBudgets={userBudgets} key={idx} />
                 )}
               
-              {/* {
-                userBudgets.map((b, idx) => 
-                  <BudgetComp key={idx} budget={b}/>
-                )
-              } */}
             </div>
 
       </div>

@@ -1,15 +1,27 @@
 import React, { useState } from 'react'
 import BudgetComp from '../../components/BudgetComp/BudgetComp'
+import EditField from '../../components/EditField/EditField'
 
 export default function BudgetGroup({ group, groupName, userBudgets }) {
-    //console.log(groupName)
 
+  const data = [];
+
+  userBudgets[groupName].forEach(category => {
+    const draft = {
+      title: category.name,
+      amount: category.budget
+    }
+    data.push(draft);
+  })
 
   return (
     <>
         <div className="border-2 rounded-md p-2 mx-2 my-1">
             <div className="py-1">
-                <div className="text-md font-bold">{groupName}</div>
+                <div className="text-md font-bold">
+                  {groupName}
+                  <EditField category={ groupName } data={ data } onSave={handleOnSave} />
+                </div>
             </div>
             <div>
                 {group.map((category, idx) => 
@@ -19,63 +31,3 @@ export default function BudgetGroup({ group, groupName, userBudgets }) {
     </>
   )
 }
-
-
-// const EditField = () => {
-
-//     const exampleData = [
-//         {
-//             groupName: 'bills',
-//             categories: [
-//                 {
-//                     name: 'insurance',
-//                     amount: 1111
-//                 },
-//                 {
-//                     name: 'insurasdnce',
-//                     amount: 1111
-//                 },
-//                 {
-//                     name: 'insursdance',
-//                     amount: 1111
-//                 }
-//             ]
-//         },
-//         {
-//             groupName: 'food',
-//             categories: [
-//                 {
-//                     name: 'insurance',
-//                     amount: 1111
-//                 },
-//                 {
-//                     name: 'insurasdnce',
-//                     amount: 1111
-//                 },
-//                 {
-//                     name: 'insursdance',
-//                     amount: 1111
-//                 }
-//             ]
-//         }
-//     ]
-//     return (
-//         <>
-//         { exampleData.map((group, index) => (
-//             <table>
-//                 <thead>
-//                     <th>{ group.groupName }</th>
-//                 </thead>
-//                 <tbody>
-//                     { group.categories.map((category, index) => (
-//                         <tr>
-//                             <td>{ category.name }</td>
-//                             <td>{ category.amount }</td>
-//                         </tr>
-//                     )) }
-//                 </tbody>
-//             </table>
-//         )) }
-//         </>
-//     );
-// }
