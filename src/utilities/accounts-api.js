@@ -1,6 +1,7 @@
 import sendRequest from "./send-request";
 
 const BASE_URL = '/api/account'
+
 const BASE_URL2 = '/api/transaction'
 
 export async function getUserAccounts(userID) {
@@ -16,3 +17,4 @@ export async function getUserBalance(accountID){
 export async function getUserIncome(userId, categoryId){
     return sendRequest(`${BASE_URL2}/user/${userId}/category/${categoryId}`)
 }
+
