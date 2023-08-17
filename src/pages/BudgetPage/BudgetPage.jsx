@@ -51,6 +51,7 @@ export default function BudgetPage({categories}) {
             if (userBudget.length === 0) {
                 setNewBudget(true)
             }
+            //console.log(userBudget)
             setBudget(userBudget)
         } catch (error) {
             console.log(error)
