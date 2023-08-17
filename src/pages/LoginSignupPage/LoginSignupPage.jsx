@@ -7,7 +7,7 @@ import Navbar from '../../components/NavBar/Navbar'
 
 export default function LoginSignupPage() {
     const { user, setUser } = useContext(AuthContext)
-    const [ login, setLogin ] = useState(false) 
+    const [ login, setLogin ] = useState(true) 
 
     function toggleLogin(){
         setLogin(!login)
