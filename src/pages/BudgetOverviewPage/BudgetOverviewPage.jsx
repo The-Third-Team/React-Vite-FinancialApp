@@ -6,32 +6,17 @@ import PageHeader from '../../components/PageHeader/PageHeader'
 import * as budgetsAPI from "../../utilities/budgets-api"
 import * as categoriesAPI from "../../utilities/categories-api"
 import { AuthContext } from '../App/App'
+import * as accountsAPI from "../../utilities/accounts-api"
 
 
 export default function BudgetOverviewPage() {
   const {user, setUser} = useContext(AuthContext)
 
   const [userBudgets, setUserBudgets] = useState([])
-  const [categories, setCategories] = useState([])
+  const [bankBalance, setUserBalance] = useState({})
+  const [bankName, setBankName] = useState("")
 
   useEffect(() => {
-    async function getCategoryTypes(){
-      try{ 
-        const categoryTypes = await categoriesAPI.getAllCategories();
-        let categoryObj = {}
-        for (let category of categoryTypes){
-            if (Object.hasOwn(categoryObj, category.group)){
-              categoryObj[category.group].push(category.id)
-            } else{
-              categoryObj[category.group] = [category.id]  
-            }
-        }
-        setCategories(categoryObj)
-      } catch(err){
-        console.log(err)
-      }
-    }
-
     async function getUserBudgets(){
       try{
           const budgets = await budgetsAPI.getUserBudget(user.id);
@@ -48,13 +33,29 @@ export default function BudgetOverviewPage() {
       }catch(err){
         console.log(err)
       }
-      
     }
-    getCategoryTypes()
+
+    // async function getAccountBalance(){
+
+    //     // retrieves account number, and further retrieves user account balance
+    //     await accountsAPI.getUserAccountBalance(user.id)
+    //       .then((userAccountObject) => {
+    //         console.log(userAccountObject)
+    //         setBankName(userAccountObject.name)
+    //         return userAccountObject.accountNumber
+    //       }).then((accountNumber) => {
+    //         const accountBalance = accountsAPI.getUserBalance(accountNumber)
+    //         setUserBalance(accountBalance)
+    //       }).catch((error) => {
+    //         console.log(error)
+    //       })
+        
+
+    // }
+
     getUserBudgets()
+    // getAccountBalance()
   }, [])
-  console.log(categories)
-  console.log(userBudgets)
 
   return (
     <>
@@ -74,12 +75,12 @@ export default function BudgetOverviewPage() {
               >
                 <div
                   className="flex flex-row justify-between ">
-                    <div
+                    {/* <div
                         className="text-gray-300 text-xs">
-                        MEADE PUBLICATIONS*MODE</div>
+                        {bankName}</div>
                     <div
                       className="text-xl font-bold"
-                      >$1,234</div>
+                      >${bankBalance}</div> */}
                 </div>
             </div>
 
@@ -94,19 +95,10 @@ export default function BudgetOverviewPage() {
 
         </div>
             <div>
-              {/* {categories.map((category, idx) => 
-                <BudgetGroup userBudgets={userBudgets} key={idx} />
-                )} */}
-
-              {Object.entries(userBudgets).map(([key, value]) => 
-                <BudgetGroup group={value} groupName={key} userBudgets={userBudgets} key={key} />
+              {Object.entries(userBudgets).map(([key, value], idx) => 
+                <BudgetGroup group={value} groupName={key} userBudgets={userBudgets} key={idx} />
                 )}
               
-              {/* {
-                userBudgets.map((b, idx) => 
-                  <BudgetComp key={idx} budget={b}/>
-                )
-              } */}
             </div>
 
       </div>
