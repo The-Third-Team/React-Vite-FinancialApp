@@ -9,3 +9,9 @@ export function getUserBudget(userID) {
 export function createUserBudget(budgetData) {
     return sendRequest(BASE_URL, 'POST', budgetData)
 }
+
+// http://localhost:3001/api/budget/bulk
+
+export function updateBudget(budgetData){
+    return sendRequest(`${BASE_URL}/bulk `, 'PUT', budgetData)
+}

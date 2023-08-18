@@ -13,9 +13,14 @@ import PieDataChart from '../../components/PieDataChart/PieDataChart'
 
 export default function BudgetOverviewPage() {
   const {user, setUser} = useContext(AuthContext)
-
   const [userBudgets, setUserBudgets] = useState([])
   const [income, setIncome] = useState([])
+  const [budgetUpdate, setBudgetUpdate] = useState(false)
+
+  // state change when budget is updated via a "put" request
+  const updateBudgetInformation = () => {
+      setBudgetUpdate(!budgetUpdate)
+  }
 
   // 'filterIncome()' returns an array with current month's income 
   const filterIncome = (incomeArray) => {
@@ -46,7 +51,9 @@ export default function BudgetOverviewPage() {
                     budgetObj[b.group] = [b]
                   }
               }
+              //Object.keys(budgetObj).sort()
               setUserBudgets(budgetObj)
+
           }catch(err){
             console.log(err)
           }
@@ -76,7 +83,8 @@ export default function BudgetOverviewPage() {
         }
     getIncomeBalance()
     getUserBudgets()
-  }, [])
+    console.log(userBudgets)
+  }, [budgetUpdate])
 
   const pieData = []
 
@@ -114,12 +122,6 @@ export default function BudgetOverviewPage() {
                     {income.map((income, idx) => 
                       <IncomeDisplayComp income={income} key={idx}/>
                     )}
-                    {/* <div
-                        className="text-gray-300 text-xs">
-                        {bankName}</div>
-                    <div
-                      className="text-xl font-bold"
-                      >${bankBalance}</div> */}
                 </div>
             </div>
 
@@ -135,7 +137,7 @@ export default function BudgetOverviewPage() {
         </div>
             <div>
               {Object.entries(userBudgets).map(([key, value], idx) => 
-                <BudgetGroup group={value} groupName={key} userBudgets={userBudgets} key={idx} />
+                <BudgetGroup groupName={key} group={value} userBudgets={userBudgets} updateBudgetInformation={updateBudgetInformation} key={idx} />
                 )}
               
             </div>
