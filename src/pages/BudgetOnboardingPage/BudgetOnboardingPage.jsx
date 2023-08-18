@@ -1,12 +1,26 @@
 import React, { useState, useEffect } from 'react'
 
+import bills from '../../assets/images/bills.png'
+import food from '../../assets/images/food.jpeg'
+import shopping from '../../assets/images/shopping.png'
+import entertainment from '../../assets/images/entertainment.jpeg'
+
 import BudgetOnboardingGroup from '../../components/BudgetOnboardingGroup/BudgetOnboardingGroup';
 
 export default function BudgetOnboardingPage({categories, createUserBudget}) {
 
     const [budgetData, setBudgetData] = useState({})
 
-    const categoryGroups = ['Bills', 'Food & Dining', 'Shopping', 'Entertainment']
+    const categoryGroups = [
+        {name: 'Bills',
+        image: bills},
+        {name: 'Food & Dining',
+        image: food},
+        {name: 'Shopping',
+        image: shopping},
+        {name: 'Entertainment',
+        image: entertainment}
+    ]
 
     const [currentGroupIdx, setCurrentGroupIdx] = useState(0)
 
@@ -25,7 +39,7 @@ export default function BudgetOnboardingPage({categories, createUserBudget}) {
 
     const getGroupCategories = () => {
         console.log('categories: ', categories)
-        const groupCategories = categories.filter((category) => category.group === categoryGroups[currentGroupIdx])
+        const groupCategories = categories.filter((category) => category.group === categoryGroups[currentGroupIdx].name)
         console.log('categoryGroups: ', groupCategories)
         setCurrentGroupCategories(groupCategories)
     }
@@ -54,7 +68,7 @@ export default function BudgetOnboardingPage({categories, createUserBudget}) {
 
   return (
     <>
-        <BudgetOnboardingGroup budgetData={budgetData} editBudgetData={editBudgetData} createUserBudget={createUserBudget} categories={currentGroupCategories} currentGroupIdx={currentGroupIdx} groupName={categoryGroups[currentGroupIdx]} updateGroupIdx={updateGroupIdx}/>
+        <BudgetOnboardingGroup budgetData={budgetData} editBudgetData={editBudgetData} createUserBudget={createUserBudget} categories={currentGroupCategories} currentGroupIdx={currentGroupIdx} groupInfo={categoryGroups[currentGroupIdx]} updateGroupIdx={updateGroupIdx}/>
     </>
   )
 }

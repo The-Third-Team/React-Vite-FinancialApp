@@ -2,6 +2,8 @@ import React, {useState, useContext} from 'react';
 import * as usersService from "../../utilities/users-service"
 import PageHeader from '../PageHeader/PageHeader';
 
+import newLeafLg from '../../assets/images/newLeaf-full.svg'
+
 import { AuthContext } from '../../pages/App/App'
 
 export default function LoginForm() {
@@ -33,15 +35,15 @@ export default function LoginForm() {
 
       <><div
       className="flex flex-col justify-center items-center ">
-      <div className='w-[100px] h-[100px] bg-red-200 rounded-[50%] mt-8'>
-
+      <img src={newLeafLg} className='w-[160px] h-[160px] mt-8'/>
+      <div className='text-[14px]'>
+        Welcome Back!
       </div>
-      <PageHeader>Welcome Back!</PageHeader>
       <form
         className="flex flex-col justify-center items-center"
         onSubmit={handleLogin}>
               <div
-                  className="m-2 mt-16">
+                  className="m-2 mt-8">
                   <input
                       type="email"
                       name="email"
@@ -62,10 +64,12 @@ export default function LoginForm() {
                     className='border-gray-400 border-2 p-1 rounded-[4px] w-60'
                 />
               </div>
-              <button
-                  type="submit"
-                  className="border-gray-400 border-2 mt-3 p-2 rounded-[4px]"
-                  >Log in</button>
+              <div className='flex justify-end w-[90%] mt-4'>
+                <button
+                    type="submit"
+                    className="bg-[#4A7739] text-white mt-3 py-2 px-6 rounded-[4px]"
+                    >Sign In</button>
+            </div>
           </form>
       </div>
       </>
