@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react'
 
 import bills from '../../assets/images/bills.png'
-import food from '../../assets/images/food.jpeg'
 import shopping from '../../assets/images/shopping.png'
-import entertainment from '../../assets/images/entertainment.jpeg'
+import entertainment from '../../assets/images/entertainment.png'
 
 import BudgetOnboardingGroup from '../../components/BudgetOnboardingGroup/BudgetOnboardingGroup';
+import BudgetOnboardingLanding from '../BudgetOnboardingLanding/BudgetOnboardingLanding'
 
 export default function BudgetOnboardingPage({categories, createUserBudget}) {
 
     const [budgetData, setBudgetData] = useState({})
+    const [startedOnboarding, setStartedOnboarding] = useState(false)
 
     const categoryGroups = [
         {name: 'Bills',
         image: bills},
         {name: 'Food & Dining',
-        image: food},
+        image: null},
         {name: 'Shopping',
         image: shopping},
         {name: 'Entertainment',
@@ -66,9 +67,18 @@ export default function BudgetOnboardingPage({categories, createUserBudget}) {
         setCurrentGroupIdx(nextIdx)
     }
 
+    const updateStartOnboarding = (bool) => {
+        setStartedOnboarding(bool)
+    }
+
   return (
     <>
-        <BudgetOnboardingGroup budgetData={budgetData} editBudgetData={editBudgetData} createUserBudget={createUserBudget} categories={currentGroupCategories} currentGroupIdx={currentGroupIdx} groupInfo={categoryGroups[currentGroupIdx]} updateGroupIdx={updateGroupIdx}/>
+    {startedOnboarding ? 
+        <BudgetOnboardingGroup budgetData={budgetData} editBudgetData={editBudgetData} createUserBudget={createUserBudget} categories={currentGroupCategories} currentGroupIdx={currentGroupIdx} groupInfo={categoryGroups[currentGroupIdx]} updateGroupIdx={updateGroupIdx} updateStartOnboarding={updateStartOnboarding}/>
+        :
+        <BudgetOnboardingLanding updateStartOnboarding={updateStartOnboarding}/>
+    }
+        
     </>
   )
 }
