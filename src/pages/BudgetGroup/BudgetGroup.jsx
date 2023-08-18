@@ -4,8 +4,9 @@ import EditField from '../../components/EditField/EditField'
 import * as budgetsAPI from "../../utilities/budgets-api"
 
 
-export default function BudgetGroup({ groupName, group, userBudgets, updateBudgetInformation}) {
+export default function BudgetGroup({ groupName, group, groupidx, userBudgets, updateBudgetInformation}) {
 
+  const colors = ['#3586FF','#E0C9FF','#FAA365','#FC7676']
   const data = [];
 
   const updateBudget = async(update) => {
@@ -53,19 +54,22 @@ export default function BudgetGroup({ groupName, group, userBudgets, updateBudge
     updateBudget(budgetUpdate)
   }
 
+  console.log(colors[groupidx])
   return (
     <>
         <div className="border-2 rounded-md p-2 mx-2 my-1">
-            <div className="py-1">
-                <div className="text-md font-bold">
-                  {groupName}
-                  <EditField category={ groupName } data={ data } onSave={handleOnSave} />
+
+            <div className="rounded-md" style={{backgroundColor:`${colors[groupidx]}`}}>
+                <div className="text-md font-bold flex justify-between">
+                  <div className="flex items-center"><span className="ml-2 text-white">{groupName}</span></div>
+                  <div className="content-start"><EditField category={ groupName } data={ data } onSave={handleOnSave} /></div>
                 </div>
             </div>
-            <div>
+            <div className="">
                 {group.map((category, idx) => 
                     <BudgetComp key={idx} category={category} userBudgets={userBudgets} />)}
             </div>
+
         </div>
     </>
   )
