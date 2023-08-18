@@ -8,6 +8,10 @@ import PageHeader from '../../components/PageHeader/PageHeader'
 import * as transactionsAPI from '../../utilities/transactions-api'
 import * as accountsAPI from '../../utilities/accounts-api'
 
+import manageCard from '../../assets/images/managecard.png'
+import statements from '../../assets/images/statements.png'
+import budgetPlan from '../../assets/images/budgetplan.png'
+
 import { AuthContext } from '../App/App'
 
 export default function Dashboard({}) {
@@ -74,13 +78,17 @@ export default function Dashboard({}) {
       datesSorted = datesSorted.map((date) => date.toLocaleString('en-US', options))
       let transactionsByDate = []
       for (let i = 0; i < datesSorted.length; i++) {
-        transactionsByDate.push([datesSorted[i], []])
+        if (datesSorted[i] !== 'Invalid Date') {
+          transactionsByDate.push([datesSorted[i], []])
+        }
         for (let j = 0; j < accountTransactions.length; j++) {
-          if (datesSorted[i] === accountTransactions[j].date) {
+          if (datesSorted[i] === accountTransactions[j].date && datesSorted[i] !== 'Invalid Date') {
             transactionsByDate[i][1].push(accountTransactions[j])
           }
         }
-        transactionsByDate[i][0] = new Date(transactionsByDate[i][0]).toLocaleString('en-US', {month: 'short', day: 'numeric'})
+        if (transactionsByDate[i]) {
+          transactionsByDate[i][0] = new Date(transactionsByDate[i][0]).toLocaleString('en-US', {month: 'short', day: 'numeric'})
+        }
       }
       setTransactionData(transactionsByDate)
       setShownTransactions([...transactionsByDate])
@@ -102,7 +110,6 @@ export default function Dashboard({}) {
     setSearchTerms(e.target.value)
 
     if (!e.target.value) {
-      console.log('empty')
       setShownTransactions([...transactionData])
     } else {
       setShownTransactions([...transactionData])
@@ -125,7 +132,6 @@ export default function Dashboard({}) {
         }
       })
 
-      console.log('matchingTransactions', matchingTransactions)
       setShownTransactions(matchingTransactions)
     }
 
@@ -134,9 +140,10 @@ export default function Dashboard({}) {
   return (
     <div>
       <Navbar/>
+      {/* bg-[#F3EFEF] */}
       <div className='ml-[15vw] w-[85vw]'>
       {/* fixed top-0  */}
-        <div className='flex flex-col items-center w-[85vw]'>
+        <div className='flex flex-col items-center w-[85vw] z-[5]'>
 
           <div className='fixed top-[-700px] w-[1000px] h-[1000px] bg-[#B0E6DB] rounded-[50%] z-[-10]'></div>
 
@@ -147,33 +154,31 @@ export default function Dashboard({}) {
           <div className='flex flex-col items-center w-full'>
             {userAccounts.map((account, idx) => {
               return (
-                <AccountCard accountName={account.type} accountBalance={account.amount} handleClickAccount={() => setSelectedAccount(account)} isSelected={selectedAccount.type === account.type} key={idx}/>
+                <AccountCard accountName={account.type} accountBalance={account.amount} accountIdx={idx} handleClickAccount={() => setSelectedAccount(account)} isSelected={selectedAccount.type === account.type} key={idx}/>
               )
             })}
           </div>
 
           <div className='flex w-full justify-center mt-8'>
-            <AccountWidget name={'Manage Card'} linkTo={''}/>
-            <AccountWidget name={'Statements'} linkTo={''}/>
-            <AccountWidget name={'Budget Plan'} linkTo={'/budget'}/>
+            <AccountWidget name={'Manage Card'} linkTo={''} imgSrc={manageCard}/>
+            <AccountWidget name={'Statements'} linkTo={''} imgSrc={statements}/>
+            <AccountWidget name={'Budget Plan'} linkTo={'/budget'} imgSrc={budgetPlan}/>
           </div>
 
           <div className='flex justify-center w-full my-4'>
-            <div className='flex w-[88%] items-center p-2 border-gray-400 border-[1px] rounded-[4px] text-[14px]'>
+            <div className='flex w-[88%] items-center p-2 bg-white border-gray-400 border-[1px] rounded-[4px] text-[14px]'>
               <div className='flex justify-center items-center mt-1 ml-2 mr-4 text-[18px]'>
                 <i className='icon flaticon-search-interface-symbol'></i>
               </div>
               <input className='w-full p-2' value={searchTerms} onChange={handleSearch} placeholder='keyword, amount, or date'/>
             </div>
           </div>
-
-          <div className='w-full border-black border-[1px]'></div>
           
         </div>
 
         {/* Transaction history */}
         <div className='flex flex-col items-center pt-4'>
-        <div className='w-[80%] mx-10'>
+        <div className='w-[88%] mx-10'>
           {shownTransactions.length > 0 && displayTransactions ?
             shownTransactions.map((transactionDay, idx) => {
             return (
@@ -181,18 +186,18 @@ export default function Dashboard({}) {
                 <table className='flex flex-col justify-start'>
                   <thead>
                     <tr>
-                      <th className='text-xl'>{transactionDay[0]}</th>
+                      <th className='text-xl text-[#15816B] tracking-wide'>{transactionDay[0]}</th>
                     </tr>
                   </thead>
                   <tbody className='flex flex-col text-[14px]'>
                     {transactionDay[1].map((transaction, idx2) => {
                       return (
                         <tr key={idx2}>
-                          <td className='flex justify-between px-2 py-2 border-black border-[1px] rounded-md mt-2'>
+                          <td className='flex justify-between px-4 py-6 border-black border-[1px] bg-white rounded-md mt-2'>
                             <div>
                               {transaction.description}
                             </div>
-                            <div>
+                            <div className='font-bold'>
                               ${(transaction.amount)}
                             </div>
                           </td>

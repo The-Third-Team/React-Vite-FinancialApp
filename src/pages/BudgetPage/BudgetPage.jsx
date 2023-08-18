@@ -40,23 +40,22 @@ export default function BudgetPage({categories}) {
 
     // if user does not have a budget, immediately load the budget onboarding page
 
-    // useEffect(() => {
-    //     getUserBudget()
-    // }, [])
+    useEffect(() => {
+        getUserBudget()
+    }, [])
 
-    // const getUserBudget = async () => {
-    //     try {
-    //         const userBudget = await budgetsAPI.getUserBudget(user.id)
-    //         console.log(userBudget)
-    //         if (userBudget.length === 0) {
-    //             setNewBudget(true)
-    //         }
-    //         //console.log(userBudget)
-    //         setBudget(userBudget)
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+    const getUserBudget = async () => {
+        try {
+            const userBudget = await budgetsAPI.getUserBudget(user.id)
+            console.log(userBudget)
+            if (userBudget.length === 0) {
+                setNewBudget(true)
+            }
+            setBudget(userBudget)
+        } catch (error) {
+            console.log(error)
+        }
+    }
   
     const createUserBudget = async (budgetData) => {
         console.log(budgetData)
@@ -70,6 +69,12 @@ export default function BudgetPage({categories}) {
                 name: key,
                 budget: parseInt(budgetData[key])
             }
+            for (let category of categories) {
+                if (key === category.name) {
+                    console.log(key, category, category.name)
+                    individualBudgetData.categoryId = category.id
+                }
+            }
             budgetsToBeCreated.push(individualBudgetData)
         }
         const res = await budgetsAPI.createUserBudget(
@@ -77,13 +82,6 @@ export default function BudgetPage({categories}) {
         )
         setBudget(res)
     }
-
-    const updateUserBudget = async (updatedBudgetData) => {
-        const updatedBudget = await budgetsAPI.updateUserBudget(user.id, updatedBudgetData);
-        console.log(updatedBudget);
-        setBudget(updatedBudget);
-    }
-
 
   return (
     <>
