@@ -114,16 +114,17 @@ export default function BudgetOverviewPage() {
       <Navbar/>
       <div className='ml-[15vw] w-[85vw] '>
        
+          <div className='fixed top-[-700px] w-[1000px] h-[1000px] bg-[#B0E6DB] rounded-[50%] z-[-10]'></div>
           <div className='flex flex-col items-center '>
-          <PageHeader>{user.firstName}'s budget</PageHeader>
+          <PageHeader>My budget</PageHeader>
           <div className="md:w-200">
-            <div className="border-2 border-gray-100 rounded-md ">
+            <div className=" border-gray-100 rounded-md shadow-lg">
               <PieDataChart data={ pieData }/>
             </div>
                 <h3 className="font-bold text-center">
                   Income
                 </h3>
-              <div className="border-2 border-gray-100 rounded-md p-5 m-2">
+              <div className="rounded-md border-gray-100 bg-white  p-5 m-2 shadow-lg">
                   <div className="flex flex-row justify-between ">
                       {income.map((income, idx) => 
                         <IncomeDisplayComp income={income} key={idx}/>
@@ -134,7 +135,7 @@ export default function BudgetOverviewPage() {
             
                 <div className="w-full ">
                   <div
-                    className="grid grid-cols-3 md:grid-cols-12 md:justify-items-start px-2 justify-items-end font-bold md:text-xl">
+                    className="grid grid-cols-3  md:grid-cols-12 md:justify-items-start px-2 justify-items-end font-bold md:text-xl">
                       <div className="col-span-1 md:col-span-4">Expenses</div>
                       <div className="col-span-1 md:col-span-4">Budget</div>
                       <div className="col-span-1 md:col-span-4">Remaining</div>
