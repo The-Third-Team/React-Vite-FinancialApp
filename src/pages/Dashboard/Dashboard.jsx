@@ -149,7 +149,7 @@ export default function Dashboard({}) {
 
           <PageHeader>Your Transactions</PageHeader>
 
-          <div className='w-[90%] text-[14px] italic'>Welcome back, {user.firstName}!</div>
+          <div className='w-[90%] text-[16px] italic mb-2'>Welcome back, {user.firstName}!</div>
 
           <div className='flex flex-col items-center w-full'>
             {userAccounts.map((account, idx) => {
@@ -197,8 +197,8 @@ export default function Dashboard({}) {
                             <div>
                               {transaction.description}
                             </div>
-                            <div className='font-bold'>
-                              ${(transaction.amount)}
+                            <div style={{color: `${transaction.amount > 0 ? '#009900' : '#990000'}`}} className='font-bold'>
+                              ${Math.abs(transaction.amount)}
                             </div>
                           </td>
                         </tr>
