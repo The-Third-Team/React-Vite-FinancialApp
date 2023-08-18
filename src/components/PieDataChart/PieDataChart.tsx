@@ -1,35 +1,27 @@
 import React from "react";
-
-import { PieChart } from 'react-minimal-pie-chart';
+import Chart from "react-google-charts";
 
 interface ChartItem {
     title: string,
     value: number,
-    color: string
 }
 
 interface Properties {
-    data: ChartItem[],
+    data: [],
 }
 
 const PieDataChart = ({ data }: Properties) => {
 
-    return  <PieChart 
-                style={{
-                    fontFamily:
-                    '"Nunito Sans", -apple-system, Helvetica, Arial, sans-serif',
-                    fontSize: '6px',
-                }}
-                data={ data }
-                lineWidth={60}
-                segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
-                animate
-                label={({ dataEntry }) => Math.round(dataEntry.percentage) + '%'}
-                labelStyle={{
-                fill: '#fff',
-                opacity: 0.75,
-                pointerEvents: 'none',
-            }}/>;
+    return (
+        <Chart
+          chartType="PieChart"
+          data={ data }
+          options={ { title: 'Expenses Overview', is3D: true } }
+          width={"100%"}
+          height={"400px"}
+        />
+      );
 }
+  
 
 export default PieDataChart;

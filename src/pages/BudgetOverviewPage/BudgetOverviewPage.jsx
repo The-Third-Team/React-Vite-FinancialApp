@@ -91,17 +91,17 @@ export default function BudgetOverviewPage() {
     console.log(userBudgets)
   }, [budgetUpdate])
 
-  const pieData = []
+  const pieData = [
+    ['Table', 'Head']
+  ]
 
   Object.entries(userBudgets).map(([key, value]) => {
-    const data = {
-      title: key,
-      value: 0,
-      color: '#845EC2'
-    }
+    const data = [key];
+    let amount = 0;
     value.forEach(category => {
-      data.value += category.budget
+      amount += category.budget
     });
+    data.push(amount);
     pieData.push(data);
   });
 
@@ -111,9 +111,8 @@ export default function BudgetOverviewPage() {
       <div className='ml-[15vw] w-[85vw]'>
         <div className='flex flex-col items-center w-[85vw]'>
           <PageHeader>YOUR BUDGET</PageHeader>
-            <div className="border-2 border-gray-100 rounded-md p-10">
-            <PieDataChart data={ pieData }/>
-
+            <div className="border-2 border-gray-100 rounded-md p-5 overflow-hidden w-screen">
+              <PieDataChart data={ pieData }/>
             </div>
 
             <div
