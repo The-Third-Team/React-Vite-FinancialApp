@@ -38,7 +38,6 @@ export default function SignupForm({updateUser}) {
       setMessage('Either an account has already been created with this email, or there is a network error. Please try again.')
       console.log(error)
     }
-
   }
 
   return (

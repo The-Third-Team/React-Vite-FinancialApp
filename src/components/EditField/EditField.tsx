@@ -3,9 +3,11 @@ import React, { useState } from "react";
 
 import { MdModeEditOutline } from 'react-icons/md';
 
+
 interface Expense {
     title: string,
-    amount: number
+    budget: number,
+    id: number
 }
 
 interface Properties {
@@ -14,14 +16,32 @@ interface Properties {
     // The data array of Expense objects
     data: Expense[],
     // Callback method for when saving
-    onSave: () => void
+    onSave: (updatedData: Expense[]) => void
 }
 
 const EditField = ({ category, data, onSave }: Properties) => {
 
     const [ openModal, setOpenModal ] = useState<string | undefined>(); 
+    const [editedData, setEditedData] = useState<Expense[]>([...data]); // Initialize with the original data
+
 
     const props = { openModal, setOpenModal };
+    // const handleInputChange = (index: number, key: keyof Expense, value: Expense[keyof Expense]) => {
+    //     const newData = [...editedData];
+    //     newData[index][key] = value;
+    //     setEditedData(newData);
+    // }
+    const handleInputChange = (index: number, key: keyof Expense, value: number) => {
+        const newData = [...editedData];
+        let expenseToUpdate = newData[index];
+        expenseToUpdate.budget = value;
+        setEditedData(newData);
+    }
+
+    const handleSave = () => {
+        onSave(editedData);
+        setOpenModal(undefined);
+    }
 
     return (
         <>
@@ -37,12 +57,12 @@ const EditField = ({ category, data, onSave }: Properties) => {
                         <div className={ 'flex justify-between w-full' } key={ index }>
                             <p className={ 'flex items-center' }>{ expense.title }</p>
                             <div>
-                                <input className={ 'max-w-[4rem] rounded text-center' } type="text" placeholder={ expense.amount.toString() } />
+                                <input className={ 'max-w-[4rem] rounded text-center' } type="text" placeholder={ expense.budget.toString() } onChange={(e) => handleInputChange(index, 'budget', parseInt(e.target.value))}/>
                             </div>
                         </div>
                     )) }
                 </div>
-                <Button className={ 'w-full mt-5 bg-red-500' } onClick={() => onSave()}>Save</Button>
+                <Button className={ 'w-full mt-5 bg-red-500' } onClick={() => handleSave()}>Save</Button>
             </Modal.Body>
         </Modal>
         </>
