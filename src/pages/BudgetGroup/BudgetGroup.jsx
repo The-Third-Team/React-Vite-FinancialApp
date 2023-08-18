@@ -1,18 +1,46 @@
 import React, { useState } from 'react'
 import BudgetComp from '../../components/BudgetComp/BudgetComp'
 import EditField from '../../components/EditField/EditField'
+import * as budgetsAPI from "../../utilities/budgets-api"
 
-export default function BudgetGroup({ group, groupName, userBudgets }) {
+
+export default function BudgetGroup({ group, groupName, userBudgets, updateBudgetInformation}) {
 
   const data = [];
+
+  const updateBudget = async(update) => {
+        await budgetsAPI.updateBudget(update)
+        .then((response)=>{
+            updateBudgetInformation()
+        }).catch((err)=>{
+            console.log(err)
+        })
+  }
 
   userBudgets[groupName].forEach(category => {
     const draft = {
       title: category.name,
-      amount: category.budget
+      budget: category.budget,
+      id: category.id
     }
     data.push(draft);
   })
+
+  const handleOnSave = (update) => {
+    const budgetUpdate = {}
+    const budgetArr = []
+    for (let u of update){
+        const entry = {}
+        if (u.budget < 0){
+            u["budget"] = -u["budget"]
+        }
+        entry["id"] = u.id;
+        entry["data"] = u
+        budgetArr.push(entry)
+    }
+    budgetUpdate["budgets"] = budgetArr
+    updateBudget(budgetUpdate)
+  }
 
   return (
     <>
