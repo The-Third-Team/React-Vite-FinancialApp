@@ -28,14 +28,11 @@ export default function Dashboard({}) {
   // formats dummy transaction data into corresponding dates and accounts
 
   useEffect(() => {
-    console.log('here1')
 
     const getUserAccounts = async (userId) => {
-      console.log('here2')
       try {
         await accountsAPI.getUserAccounts(userId)
         .then((res) => {
-          console.log(res)
           setUserAccounts(res)
           setSelectedAccount(res[0])
         })
@@ -56,7 +53,6 @@ export default function Dashboard({}) {
       try {
         await transactionsAPI.getAccountTransactions(accountId)
         .then((res) => {
-          console.log(res)
           formatTransactions(res)
         })
       } catch (error) {
@@ -72,9 +68,15 @@ export default function Dashboard({}) {
       })
       let datesAll = accountTransactions.map((transaction) => new Date(transaction.date))
       let dateSet = new Set(datesAll)
-      let datesSorted = Array.from(dateSet).sort((a, b) => {
+      let datesSortedPre = Array.from(dateSet).sort((a, b) => {
         return b - a
       });
+      let datesSorted = []
+      for (let i = 0; i < datesSortedPre.length - 1; i++) {
+        if (datesSortedPre[i].toString() !== datesSortedPre[i + 1].toString()) {
+          datesSorted.push(datesSortedPre[i])
+        }
+      }
       datesSorted = datesSorted.map((date) => date.toLocaleString('en-US', options))
       let transactionsByDate = []
       for (let i = 0; i < datesSorted.length; i++) {
@@ -95,7 +97,6 @@ export default function Dashboard({}) {
       setTimeout(() => setDisplayTransactions(true), 85)
     }
     
-    console.log('selectedAccount: ', selectedAccount)
     selectedAccount ? getAccountTransactions(selectedAccount.id) : '';
     formatTransactions(transactionData);
   }, [selectedAccount])
@@ -106,7 +107,6 @@ export default function Dashboard({}) {
 // but typing 'sh' and deleting the 'h', leaving just 's', will show shopping and not uber eats
 
   const handleSearch = (e) => {
-    console.log(e.target.value)
     setSearchTerms(e.target.value)
 
     if (!e.target.value) {
@@ -114,7 +114,6 @@ export default function Dashboard({}) {
     } else {
       setShownTransactions([...transactionData])
       const lowerSearchTerms = e.target.value.toLowerCase()
-      console.log('lowerSearchTerms', lowerSearchTerms)
       const matchingTransactions = []
       shownTransactions.map((transactionDay) => {
         if (transactionDay[0].toLowerCase().includes(lowerSearchTerms)) {
