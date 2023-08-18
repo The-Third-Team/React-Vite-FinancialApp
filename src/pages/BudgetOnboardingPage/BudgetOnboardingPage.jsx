@@ -30,7 +30,6 @@ export default function BudgetOnboardingPage({categories, createUserBudget}) {
     useEffect(() => {
         initializeEmptyBudget()
         getGroupCategories(currentGroupIdx)
-        console.log('budgetData: ', budgetData)
     }, [])
 
     useEffect(() => {
@@ -39,27 +38,20 @@ export default function BudgetOnboardingPage({categories, createUserBudget}) {
 
 
     const getGroupCategories = () => {
-        console.log('categories: ', categories)
         const groupCategories = categories.filter((category) => category.group === categoryGroups[currentGroupIdx].name)
-        console.log('categoryGroups: ', groupCategories)
         setCurrentGroupCategories(groupCategories)
     }
 
     const initializeEmptyBudget = () => {
-        let i = 0
         const initialBudgetData = {}
-        console.log(categories)
         for (const category of categories) {
             initialBudgetData[category.name] = ''
-            i++
         }
-        console.log(initialBudgetData)
         setBudgetData(initialBudgetData)
     }
 
     const editBudgetData = (field, amount) => {
         setBudgetData({...budgetData, [field]: amount})
-        console.log('budgetData: ', budgetData)
     }
 
     const updateGroupIdx = (value) => {

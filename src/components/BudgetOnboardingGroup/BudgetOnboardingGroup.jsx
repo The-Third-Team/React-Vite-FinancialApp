@@ -30,11 +30,11 @@ export default function BudgetOnboardingGroup({budgetData, editBudgetData, categ
 
     
     
-    <div className='flex flex-col items-center justify-center h-[100vh]'>
+    <div className='flex flex-col items-center justify-center'>
 
     <div className='fixed top-[-600px] w-[1000px] h-[1000px] bg-[#F5EDFF] rounded-[50%] z-[-10]'></div>
 
-    <Link to={'/'} className='flex justify-start items-center px-8 py-2 w-full'>
+    <Link to={'/'} className='flex justify-start items-center px-8 py-2 w-full mt-4'>
         <div className='text-[24px]'>
             <i className='icon flaticon-close'></i>
         </div>
@@ -56,7 +56,7 @@ export default function BudgetOnboardingGroup({budgetData, editBudgetData, categ
 
 
     {/* Buttons */}
-    <div className='flex items-center justify-between w-[80%]'>
+    <div className='flex items-center justify-between w-[80%] mb-8'>
         {currentGroupIdx > 0 ?
             <button className='flex justify-center items-center px-10 py-3 text-[#52AD9C]' onClick={handleShowPrev}>
                 <div className='text-[18px]'>

@@ -47,7 +47,6 @@ export default function BudgetPage({categories}) {
     const getUserBudget = async () => {
         try {
             const userBudget = await budgetsAPI.getUserBudget(user.id)
-            console.log(userBudget)
             if (userBudget.length === 0) {
                 setNewBudget(true)
             }
@@ -58,7 +57,6 @@ export default function BudgetPage({categories}) {
     }
   
     const createUserBudget = async (budgetData) => {
-        console.log(budgetData)
         const budgetsToBeCreated = []
         for (let key in budgetData) {
             if (!budgetData[key]) {
@@ -71,7 +69,6 @@ export default function BudgetPage({categories}) {
             }
             for (let category of categories) {
                 if (key === category.name) {
-                    console.log(key, category, category.name)
                     individualBudgetData.categoryId = category.id
                 }
             }
@@ -86,7 +83,7 @@ export default function BudgetPage({categories}) {
   return (
     <>
     {/* budget.length == 0  */}
-    {true ?
+    {budget.length > 0 ?
         <BudgetOverviewPage budget={budget}/>
         :
         <BudgetOnboardingPage budget={budget} categories={categories} createUserBudget={createUserBudget}/>

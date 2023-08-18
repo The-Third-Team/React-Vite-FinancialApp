@@ -10,7 +10,7 @@ export default function BudgetCategoryField({name, amount, editBudgetData}) {
 
   return (
     <div className='flex justify-between items-center mb-6'>
-        <div className='flex justify-end w-[60%] text-[18px] mr-16'>
+        <div className='flex justify-end w-[60%] text-[18px] mr-12'>
             <div>{name}</div>
         </div>
         <div className='flex justify-center w-24 bg-white border-black border-[1px] rounded-sm text-[18px]'>
