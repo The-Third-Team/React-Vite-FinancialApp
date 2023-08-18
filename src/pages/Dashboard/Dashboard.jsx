@@ -19,12 +19,15 @@ export default function Dashboard({}) {
   const [transactionData, setTransactionData] = useState([])
   const [shownTransactions, setShownTransactions] = useState([])
   const [searchTerms, setSearchTerms] = useState('')
+  const [displayTransactions, setDisplayTransactions] = useState(false)
 
   // formats dummy transaction data into corresponding dates and accounts
 
   useEffect(() => {
+    console.log('here1')
 
     const getUserAccounts = async (userId) => {
+      console.log('here2')
       try {
         await accountsAPI.getUserAccounts(userId)
         .then((res) => {
@@ -42,6 +45,8 @@ export default function Dashboard({}) {
   }, [])
 
   useEffect(() => {
+
+    setDisplayTransactions(false)
 
     const getAccountTransactions = async (accountId) => {
       try {
@@ -79,6 +84,7 @@ export default function Dashboard({}) {
       }
       setTransactionData(transactionsByDate)
       setShownTransactions([...transactionsByDate])
+      setTimeout(() => setDisplayTransactions(true), 85)
     }
     
     console.log('selectedAccount: ', selectedAccount)
@@ -132,7 +138,11 @@ export default function Dashboard({}) {
       {/* fixed top-0  */}
         <div className='flex flex-col items-center w-[85vw]'>
 
-          <PageHeader>YOUR ACCOUNTS</PageHeader>
+          <div className='fixed top-[-700px] w-[1000px] h-[1000px] bg-[#B0E6DB] rounded-[50%] z-[-10]'></div>
+
+          <PageHeader>Your Transactions</PageHeader>
+
+          <div className='w-[90%] text-[14px] italic'>Welcome back, {user.firstName}!</div>
 
           <div className='flex flex-col items-center w-full'>
             {userAccounts.map((account, idx) => {
@@ -150,8 +160,8 @@ export default function Dashboard({}) {
 
           <div className='flex justify-center w-full my-4'>
             <div className='flex w-[88%] items-center p-2 border-gray-400 border-[1px] rounded-[4px] text-[14px]'>
-              <div className='flex justify-center items-center h-8 w-10 ml-2 mr-4 text-[18px] border-black border-[1px] rounded-[50%] bg-gray-200'>
-                <div>🔍</div>
+              <div className='flex justify-center items-center mt-1 ml-2 mr-4 text-[18px]'>
+                <i className='icon flaticon-search-interface-symbol'></i>
               </div>
               <input className='w-full p-2' value={searchTerms} onChange={handleSearch} placeholder='keyword, amount, or date'/>
             </div>
@@ -164,7 +174,7 @@ export default function Dashboard({}) {
         {/* Transaction history */}
         <div className='flex flex-col items-center pt-4'>
         <div className='w-[80%] mx-10'>
-          {shownTransactions.length > 0 ?
+          {shownTransactions.length > 0 && displayTransactions ?
             shownTransactions.map((transactionDay, idx) => {
             return (
               <div key={idx}>
@@ -196,9 +206,15 @@ export default function Dashboard({}) {
             )
           })
           :
-          <div>
-            You do not have any transactions yet. TIP: Try spending more money!
-          </div>
+          <>
+            {displayTransactions ?
+              <div>
+              You do not have any transactions yet. TIP: Try spending more money!
+              </div>
+              :
+              <></>
+            }
+          </>
           }
         </div>
         </div>

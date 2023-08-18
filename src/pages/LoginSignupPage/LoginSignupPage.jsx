@@ -24,8 +24,8 @@ export default function LoginSignupPage() {
                     <SignupForm />
                 }
                 <div className='w-full flex justify-center'>
-                    <button onClick={toggleLogin} className="p-2 mt-8 italic">
-                        {login ? 'Create an Account' : 'Already have an account? Log in here'}
+                    <button onClick={toggleLogin} className="p-2 mt-2 text-[14px] italic">
+                        {login ? 'Create an Account' : 'Already have an account? Sign in here'}
                     </button>
                 </div>
             </div>

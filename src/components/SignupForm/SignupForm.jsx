@@ -1,6 +1,8 @@
 import React, {useState, useContext} from 'react'
 import PageHeader from '../PageHeader/PageHeader'
 
+import newLeafLg from '../../assets/images/newLeaf-full.svg'
+
 // import * as usersAPI from '../../utilities/users-api'
 import * as usersService from '../../utilities/users-service'
 
@@ -10,6 +12,8 @@ import { AuthContext } from '../../pages/App/App'
 export default function SignupForm({updateUser}) {
   
   const { user, setUser } = useContext(AuthContext)
+
+  const [message, setMessage] = useState('Create an Account')
   
   const [credentials, setCredentials] = useState({
     firstName: "",
@@ -27,25 +31,23 @@ export default function SignupForm({updateUser}) {
   const handleSignUp = async (evt) => {
     evt.preventDefault();
     try {
-        const userData = await usersService.register(credentials);
-        console.log(userData)
-        setUser(userData)
-    }catch(err){
-        console.log(err.message)
+      const userData = await usersService.register(credentials);
+      console.log(userData)
+      setUser(userData)
+    } catch (error) {
+      setMessage('Either an account has already been created with this email, or there is a network error. Please try again.')
+      console.log(error)
     }
-    // const userData = await usersService.register(credentials);
-    // console.log(userData)
-    // setUser(userData)
   }
 
   return (
     <>
       <div
         className="flex flex-col justify-center items-center ">
-        <div className='w-[100px] h-[100px] bg-red-200 rounded-[50%] mt-8'>
-
+        <img src={newLeafLg} className='w-[160px] h-[160px] mt-8'/>
+        <div className='text-[14px] h-12 mx-[10%] mb-4'>
+          {message}
         </div>
-        <PageHeader>Sign Up</PageHeader>
         <form
           className="flex flex-col justify-center items-center"
           onSubmit={handleSignUp}
@@ -116,10 +118,13 @@ export default function SignupForm({updateUser}) {
                       className='border-gray-400 border-2 p-1 rounded-[4px] w-60'
                   />
               </div>
+              <div className='flex justify-end w-[90%]'>
               <button
                   type="submit"
-                  className="border-gray-400 border-2 mt-3 p-2 rounded-[4px]"
-                  >Sign up</button>
+                  className="text-white bg-[#4A7739] mt-3 py-2 px-4 rounded-[4px] shadow-black shadow-sm"
+                  >Sign up
+                  </button>
+              </div>
             </form>
         </div>
     </>

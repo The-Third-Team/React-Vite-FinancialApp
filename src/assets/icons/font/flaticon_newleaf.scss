@@ -1,0 +1,85 @@
+$flaticon_newleaf-font: "flaticon_newleaf";
+
+@font-face {
+    font-family: $flaticon_newleaf-font;
+    src: url("./flaticon_newleaf.ttf?b677c6c80ca122f3daefac71e4272297") format("truetype"),
+url("./flaticon_newleaf.woff?b677c6c80ca122f3daefac71e4272297") format("woff"),
+url("./flaticon_newleaf.woff2?b677c6c80ca122f3daefac71e4272297") format("woff2"),
+url("./flaticon_newleaf.eot?b677c6c80ca122f3daefac71e4272297#iefix") format("embedded-opentype"),
+url("./flaticon_newleaf.svg?b677c6c80ca122f3daefac71e4272297#flaticon_newleaf") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon_newleaf !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+$flaticon_newleaf-map: (
+    "close": "\f101",
+    "close-1": "\f102",
+    "search": "\f103",
+    "search-interface-symbol": "\f104",
+    "loupe": "\f105",
+    "budgeting": "\f106",
+    "budget-1": "\f107",
+    "home": "\f108",
+    "house-1": "\f109",
+    "home-icon-silhouette": "\f10a",
+    "home-1": "\f10b",
+    "logout-1": "\f10c",
+    "logout-2": "\f10d",
+    "log-out": "\f10e",
+    "logout-3": "\f10f",
+);
+
+.flaticon-close:before {
+    content: map-get($flaticon_newleaf-map, "close");
+}
+.flaticon-close-1:before {
+    content: map-get($flaticon_newleaf-map, "close-1");
+}
+.flaticon-search:before {
+    content: map-get($flaticon_newleaf-map, "search");
+}
+.flaticon-search-interface-symbol:before {
+    content: map-get($flaticon_newleaf-map, "search-interface-symbol");
+}
+.flaticon-loupe:before {
+    content: map-get($flaticon_newleaf-map, "loupe");
+}
+.flaticon-budgeting:before {
+    content: map-get($flaticon_newleaf-map, "budgeting");
+}
+.flaticon-budget-1:before {
+    content: map-get($flaticon_newleaf-map, "budget-1");
+}
+.flaticon-home:before {
+    content: map-get($flaticon_newleaf-map, "home");
+}
+.flaticon-house-1:before {
+    content: map-get($flaticon_newleaf-map, "house-1");
+}
+.flaticon-home-icon-silhouette:before {
+    content: map-get($flaticon_newleaf-map, "home-icon-silhouette");
+}
+.flaticon-home-1:before {
+    content: map-get($flaticon_newleaf-map, "home-1");
+}
+.flaticon-logout-1:before {
+    content: map-get($flaticon_newleaf-map, "logout-1");
+}
+.flaticon-logout-2:before {
+    content: map-get($flaticon_newleaf-map, "logout-2");
+}
+.flaticon-log-out:before {
+    content: map-get($flaticon_newleaf-map, "log-out");
+}
+.flaticon-logout-3:before {
+    content: map-get($flaticon_newleaf-map, "logout-3");
+}

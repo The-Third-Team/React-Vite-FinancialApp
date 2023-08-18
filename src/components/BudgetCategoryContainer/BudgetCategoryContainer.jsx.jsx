@@ -10,7 +10,7 @@ export default function BudgetCategoryContainer({categories, budgetData, editBud
   }, [categories])
 
   return (
-    <div className='flex flex-col justify-start w-[70%] h-[24%]'>
+    <div className='flex flex-col justify-start w-[70%] h-[30%] text-[14px]'>
         {displayedCategories.map((category, idx) => <BudgetCategoryField name={category.name} amount={budgetData[category.name]} editBudgetData={editBudgetData} key={idx}/>)}
     </div>
   )
