@@ -26,20 +26,22 @@ export default function Navbar() {
                     Logo
                 </div>
             </div>
-            <div
+            <Link
+                to='/'
                 className="flex justify-center items-center text-white text-[10px] mt-[60px] bg-gray-400 h-[40px] w-[40px] rounded-[50%]"
                 >
                 <div>
-                    About
+                    Home
                 </div>
-            </div>
-            <div
+            </Link>
+            <Link
+                to='/budget'
                 className="flex justify-center items-center text-white text-[9px] mt-[60px] bg-gray-400 h-[40px] w-[40px] rounded-[50%]"
                 >
                 <div>
-                    Contact
+                    Budget
                 </div>
-            </div>
+            </Link>
             { user ?
                 <Link
                 to={'/'}
