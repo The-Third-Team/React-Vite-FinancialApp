@@ -51,8 +51,13 @@ export default function BudgetOverviewPage() {
                     budgetObj[b.group] = [b]
                   }
               }
+              const sortedK = Object.keys(budgetObj).sort()
+              const sortedBudget = {}
+              for (const key of sortedK){
+                sortedBudget[key] = budgetObj[key] 
+              }
               //Object.keys(budgetObj).sort()
-              setUserBudgets(budgetObj)
+              setUserBudgets(sortedBudget)
 
           }catch(err){
             console.log(err)

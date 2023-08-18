@@ -4,7 +4,7 @@ import EditField from '../../components/EditField/EditField'
 import * as budgetsAPI from "../../utilities/budgets-api"
 
 
-export default function BudgetGroup({ group, groupName, userBudgets, updateBudgetInformation}) {
+export default function BudgetGroup({ groupName, group, userBudgets, updateBudgetInformation}) {
 
   const data = [];
 
@@ -17,7 +17,16 @@ export default function BudgetGroup({ group, groupName, userBudgets, updateBudge
         })
   }
 
-  userBudgets[groupName].forEach(category => {
+//   userBudgets[groupName].forEach(category => {
+//     const draft = {
+//       title: category.name,
+//       budget: category.budget,
+//       id: category.id
+//     }
+//     data.push(draft);
+//   })
+
+  group.forEach(category => {
     const draft = {
       title: category.name,
       budget: category.budget,
@@ -25,6 +34,8 @@ export default function BudgetGroup({ group, groupName, userBudgets, updateBudge
     }
     data.push(draft);
   })
+
+  //const sortedData = data.slice().sort((a,b) => a.id - b.id)
 
   const handleOnSave = (update) => {
     const budgetUpdate = {}
