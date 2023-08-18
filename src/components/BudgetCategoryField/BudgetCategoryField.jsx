@@ -6,8 +6,6 @@ export default function BudgetCategoryField({name, amount, editBudgetData}) {
     editBudgetData(name, e.target.value)
   }
 
-  console.log('name: ', name, ' amount: ', amount)
-
   return (
     <div className='flex justify-between items-center mb-6'>
         <div className='flex justify-end w-[60%] text-[18px] mr-12'>

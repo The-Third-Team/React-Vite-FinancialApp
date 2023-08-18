@@ -12,11 +12,9 @@ export default function BudgetOnboardingGroup({budgetData, editBudgetData, categ
 
     const handleShowPrev = () => {
         updateGroupIdx(-1)
-        console.log(currentGroupIdx)
     }
 
     const handleCreateBudget = () => {
-        console.log(createUserBudget)
         createUserBudget(budgetData)
     }
 
