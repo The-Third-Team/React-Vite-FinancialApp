@@ -5,7 +5,12 @@ import * as usersService from '../../utilities/users-service'
 import newLeafSmWhite from '../../assets/images/newLeaf-sm-white.png'
 
 import { AuthContext } from '../../pages/App/App'
-import { Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+
+import home from '../../assets/images/home.png'
+import budget from '../../assets/images/budget.png'
+import settings from '../../assets/images/settings.png'
+import logout from '../../assets/images/logout.png'
 
 export default function Navbar() {
 
@@ -23,39 +28,52 @@ export default function Navbar() {
             className="fixed w-[15vw] flex flex-col bg-[#03254c] items-center px-6 py-6 h-[100vh] z-10"
         >
             <div
-                className="flex justify-center items-center text-white text-[10px] mt-[40px] mb-[40px] h-[40px] w-[40px]"
+                className="flex justify-center items-center text-white text-[10px] mt-[10px] mb-[40px] h-[40px] w-[40px]"
                 >
                 <img src={newLeafSmWhite}/>
             </div>
-            <Link
-                to='/'
-                className="flex justify-center items-center text-white mt-[60px] bg-white h-[40px] w-[40px] rounded-[50%]"
-                >
-                <i className='icon flaticon-home-1 mt-1 text-[24px] text-black'></i>
-            </Link>
-            <Link
-                to='/budget'
-                className="flex justify-center items-center text-white mt-[60px] bg-white h-[40px] w-[40px] rounded-[50%]"
-                >
-                <i className='icon flaticon-budget-1 mt-1 text-[24px] text-black'></i>
-            </Link>
-            { user ?
-                <Link
-                to={'/'}
-                className="flex justify-center items-center text-white text-[10px] mt-[60px] bg-white h-[40px] w-[40px] rounded-[50%]"
-                onClick={handleLogout}>
-                    <i className='icon flaticon-logout-3 mt-1 text-[24px] text-black'></i>
-                </Link>
-            :
-                <Link
-                to={'/'}
-                className="flex justify-center items-center text-white text-[10px] mt-[60px] bg-gray-400 h-[40px] w-[40px] rounded-[50%]"
-                >
-                    <div>
-                        Login
-                    </div>
-                </Link>
-            }
+
+            <div className='flex flex-col justify-between h-[80%] mt-[20px]'>
+                <div>
+                    <Link
+                        to='/'
+                        className="flex justify-center items-center h-[40px] w-[40px] mb-[40px]"
+                        >
+                        <img src={home} />
+                    </Link>
+                    <Link
+                        to='/budget'
+                        className="flex justify-center items-center h-[40px] w-[40px]"
+                        >
+                        <img src={budget} />
+                    </Link>
+                </div>
+                <div className='flex flex-col mb-[40px]'>
+                    
+                { user ?
+                    <>
+                        <Link
+                        to={'/'}
+                        className="flex justify-center items-center h-[40px] w-[40px] mb-[40px]"
+                        onClick={handleLogout}>
+                            <img src={logout} />
+                        </Link>
+                        <div className='flex justify-center items-center h-[40px] w-[40px] cursor-pointer'>
+                            <img src={settings}/>
+                        </div>
+                    </>
+                :
+                    <>
+                        <div className='h-[40px] w-[40px]'>
+
+                        </div>
+                        <div className='h-[40px] w-[40px]'>
+
+                        </div>
+                    </>
+                }
+                </div>
+            </div>
             
  
         </nav>

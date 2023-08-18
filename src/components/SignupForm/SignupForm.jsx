@@ -45,7 +45,7 @@ export default function SignupForm({updateUser}) {
       <div
         className="flex flex-col justify-center items-center ">
         <img src={newLeafLg} className='w-[160px] h-[160px] mt-8'/>
-        <div className='text-[14px] h-12 mx-[10%] mb-4'>
+        <div className='text-[14px] h-12 mx-[10%] mb-4 text-center'>
           {message}
         </div>
         <form
@@ -60,7 +60,7 @@ export default function SignupForm({updateUser}) {
                       placeholder="First Name"
                       value={credentials.firstName}
                       onChange={handleChange}
-                      className="border-gray-400 border-2 p-1 rounded-[4px] w-60 md:w-30 lg:w-40"
+                      className="border-gray-400 border-2 p-1 rounded-[4px] w-60"
                       ></input>
               </div>
               <div

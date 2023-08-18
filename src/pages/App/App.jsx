@@ -16,7 +16,6 @@ export const AuthContext = createContext();
 
 export default function App() {
   const [user, setUser] = useState(usersService.getUser());
-  const [count, setCount] = useState(0);
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
