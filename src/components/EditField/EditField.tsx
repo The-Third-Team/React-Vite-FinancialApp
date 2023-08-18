@@ -52,7 +52,7 @@ const EditField = ({ category, data, onSave }: Properties) => {
             <Modal.Header />
             <Modal.Body className={ 'max-w-sm p-6 pt-0 bg-white rounded-lg' }>
                 <h3 className={ 'mb-5 text-lg text-center font-normal text-gray-500 dark:text-gray-400' }>{ category }</h3>
-                <div className="max-h-[15rem] overflow-auto flex flex-col justify-center gap-4 pt-10">
+                <div className="max-h-[15rem] overflow-auto flex flex-col justify-center gap-4 pt-10 z-50">
                     { data.map((expense, index) => (
                         <div className={ 'flex justify-between w-full' } key={ index }>
                             <p className={ 'flex items-center' }>{ expense.title }</p>

@@ -12,6 +12,10 @@ import PieDataChart from '../../components/PieDataChart/PieDataChart'
 
 
 export default function BudgetOverviewPage() {
+  const currentDate = new Date()
+  const currentMonth = currentDate.getMonth() + 1;
+  const currentYear = currentDate.getYear();
+
   const {user, setUser} = useContext(AuthContext)
   const [userBudgets, setUserBudgets] = useState([])
   const [income, setIncome] = useState([])
@@ -24,9 +28,9 @@ export default function BudgetOverviewPage() {
 
   // 'filterIncome()' returns an array with current month's income 
   const filterIncome = (incomeArray) => {
-    const currentDate = new Date()
-    const currentMonth = currentDate.getMonth() + 1;
-    const currentYear = currentDate.getYear();
+    // const currentDate = new Date()
+    // const currentMonth = currentDate.getMonth() + 1;
+    // const currentYear = currentDate.getYear();
 
     const filteredIncomeArr = incomeArray.filter((income) => {
       const createdDate = new Date(income.date)
@@ -108,45 +112,46 @@ export default function BudgetOverviewPage() {
   return (
     <>
       <Navbar/>
-      <div className='ml-[15vw] w-[85vw]'>
-        <div className='flex flex-col items-center w-[85vw]'>
-          <PageHeader>YOUR BUDGET</PageHeader>
-            <div className="border-2 border-gray-100 rounded-md p-5 overflow-hidden w-screen">
+      <div className='ml-[15vw] w-[85vw] '>
+       
+          <div className='flex flex-col items-center '>
+          <PageHeader>{user.firstName}'s budget</PageHeader>
+          <div className="md:w-200">
+            <div className="border-2 border-gray-100 rounded-md ">
               <PieDataChart data={ pieData }/>
             </div>
+                <h3 className="font-bold text-center">
+                  Income
+                </h3>
+              <div className="border-2 border-gray-100 rounded-md p-5 m-2">
+                  <div className="flex flex-row justify-between ">
+                      {income.map((income, idx) => 
+                        <IncomeDisplayComp income={income} key={idx}/>
+                      )}
+                  </div>
+              </div>
 
-            <div
-                className="flex font-bold"
-                >Income</div>
-            <div
-              className="border-2 border-gray-100 rounded-md p-5 m-2"
-              >
-                <div
-                  className="flex flex-row justify-between ">
-                    {income.map((income, idx) => 
-                      <IncomeDisplayComp income={income} key={idx}/>
+            
+                <div className="w-full ">
+                  <div
+                    className="grid grid-cols-3 md:grid-cols-12 md:justify-items-start px-2 justify-items-end font-bold md:text-xl">
+                      <div className="col-span-1 md:col-span-4">Expenses</div>
+                      <div className="col-span-1 md:col-span-4">Budget</div>
+                      <div className="col-span-1 md:col-span-4">Remaining</div>
+                  </div>
+                </div>
+
+            
+                <div>
+                  {Object.entries(userBudgets).map(([key, value], idx) => 
+                    <BudgetGroup groupName={key} group={value} groupidx={idx} userBudgets={userBudgets} updateBudgetInformation={updateBudgetInformation} key={idx} />
                     )}
+                  
                 </div>
             </div>
+          </div>
 
-            <div className="w-full">
-              <div
-                className="grid grid-cols-3  px-2 justify-items-end font-bold">
-                  <div className="col-span-1">Expenses</div>
-                  <div className="col-span-1">Budget</div>
-                  <div className="col-span-1">Remaining</div>
-              </div>
-            </div>
-
-        </div>
-            <div>
-              {Object.entries(userBudgets).map(([key, value], idx) => 
-                <BudgetGroup groupName={key} group={value} userBudgets={userBudgets} updateBudgetInformation={updateBudgetInformation} key={idx} />
-                )}
-              
-            </div>
-
-      </div>
+    </div>
 
     </>
   )
