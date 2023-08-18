@@ -26,9 +26,16 @@ export default function SignupForm({updateUser}) {
 
   const handleSignUp = async (evt) => {
     evt.preventDefault();
-    const userData = await usersService.register(credentials);
-    console.log(userData)
-    setUser(userData)
+    try {
+        const userData = await usersService.register(credentials);
+        console.log(userData)
+        setUser(userData)
+    }catch(err){
+        console.log(err.message)
+    }
+    // const userData = await usersService.register(credentials);
+    // console.log(userData)
+    // setUser(userData)
   }
 
   return (
