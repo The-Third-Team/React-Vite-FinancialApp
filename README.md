@@ -1,8 +1,13 @@
-![image](/public/newLeaf-full.svg)
+<div align="center">
+    <img src="./public/newLeaf-full.svg" width="300">
 
 # New Leaf Banking App
 
+
+
 A banking app add-on to help users budget. 
+
+</div>
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
@@ -30,8 +35,7 @@ The visuals help to intuitively manage your budget, ensuring that your spending 
 
 ![image](/public/iPhone%2014%20Pro.png)
 
-![image](/public/Female%20hand%20holding%20iPhone%2014%20Pro%20mockup%20(Mockuuups%20Studio).png)
-
+<img src="./public/Female%20hand%20holding%20iPhone%2014%20Pro%20mockup%20(Mockuuups%20Studio).png" width="300"/>
 
 ## **Github**
 
