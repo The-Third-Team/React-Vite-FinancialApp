@@ -25,7 +25,7 @@ export default function Navbar() {
     <>
     {/* bg-[#03254c] */}
         <nav
-            className="fixed w-[15vw] flex flex-col bg-[#03254c] items-center px-6 py-6 h-[100vh] z-10"
+            className="fixed w-[15vw] flex flex-col bg-[#336E2A] items-center px-6 py-6 h-[100vh] z-10"
         >
             <div
                 className="flex justify-center items-center text-white text-[10px] mt-[10px] mb-[40px] h-[40px] w-[40px]"
