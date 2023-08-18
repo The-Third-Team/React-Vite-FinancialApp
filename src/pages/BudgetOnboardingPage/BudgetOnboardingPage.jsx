@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import bills from '../../assets/images/bills.png'
+import food from '../../assets/images/food.png'
 import shopping from '../../assets/images/shopping.png'
 import entertainment from '../../assets/images/entertainment.png'
 
@@ -16,7 +17,7 @@ export default function BudgetOnboardingPage({categories, createUserBudget}) {
         {name: 'Bills',
         image: bills},
         {name: 'Food & Dining',
-        image: null},
+        image: food},
         {name: 'Shopping',
         image: shopping},
         {name: 'Entertainment',

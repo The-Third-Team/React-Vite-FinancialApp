@@ -146,10 +146,12 @@ export default function Dashboard({}) {
         <div className='flex flex-col items-center w-[85vw] z-[5]'>
 
           <div className='fixed top-[-700px] w-[1000px] h-[1000px] bg-[#B0E6DB] rounded-[50%] z-[-10]'></div>
+          
+          <div className='mt-4 mb-4'>
+            <PageHeader>Your Transactions</PageHeader>
+          </div>
 
-          <PageHeader>Your Transactions</PageHeader>
-
-          <div className='w-[90%] text-[16px] italic mb-2'>Welcome back, {user.firstName}!</div>
+          <div className='w-[80%] text-[16px] italic mb-2'>Welcome back, {user.firstName}!</div>
 
           <div className='flex flex-col items-center w-full'>
             {userAccounts.map((account, idx) => {
@@ -213,8 +215,10 @@ export default function Dashboard({}) {
           :
           <>
             {displayTransactions ?
-              <div>
-              You do not have any transactions yet. TIP: Try spending more money!
+              <div className='text-center'>
+              You do not have any transactions yet.
+              <br />
+              TIP: <span className='italic'>Try spending more money!</span>
               </div>
               :
               <></>

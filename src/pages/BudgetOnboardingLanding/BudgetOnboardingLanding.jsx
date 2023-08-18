@@ -50,9 +50,9 @@ export default function BudgetOnboardingLanding({updateStartOnboarding}) {
         </div>
 
         {/* Buttons */}
-        <div className='flex items-center justify-end w-[80%] mt-8'>
+        <div className='flex items-center justify-end w-[80%] mt-8 mb-4'>
 
-            <button className='flex justify-center items-center px-10 py-3 bg-[#3C6B04] text-white rounded-lg' onClick={handleClick}>
+            <button className='flex justify-center items-center px-10 py-3 bg-[#3C6B04] text-white rounded-lg mb-4' onClick={handleClick}>
                 <div className='text-[18px] font-medium'>
                     Next
                 </div>

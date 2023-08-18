@@ -30,7 +30,7 @@ export default function BudgetOnboardingGroup({budgetData, editBudgetData, categ
 
     
     
-    <div className='flex flex-col items-center justify-center'>
+    <div className='flex flex-col items-center'>
 
     <div className='fixed top-[-600px] w-[1000px] h-[1000px] bg-[#F5EDFF] rounded-[50%] z-[-10]'></div>
 
@@ -56,7 +56,7 @@ export default function BudgetOnboardingGroup({budgetData, editBudgetData, categ
 
 
     {/* Buttons */}
-    <div className='flex items-center justify-between w-[80%] mb-8'>
+    <div className='bottom-4 flex items-center justify-between w-[80%] mb-4'>
         {currentGroupIdx > 0 ?
             <button className='flex justify-center items-center px-10 py-3 text-[#52AD9C]' onClick={handleShowPrev}>
                 <div className='text-[18px]'>
