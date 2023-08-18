@@ -1,0 +1,65 @@
+@font-face {
+    font-family: "flaticon_newleaf";
+    src: url("./flaticon_newleaf.ttf?b677c6c80ca122f3daefac71e4272297") format("truetype"),
+url("./flaticon_newleaf.woff?b677c6c80ca122f3daefac71e4272297") format("woff"),
+url("./flaticon_newleaf.woff2?b677c6c80ca122f3daefac71e4272297") format("woff2"),
+url("./flaticon_newleaf.eot?b677c6c80ca122f3daefac71e4272297#iefix") format("embedded-opentype"),
+url("./flaticon_newleaf.svg?b677c6c80ca122f3daefac71e4272297#flaticon_newleaf") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon_newleaf !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-close:before {
+    content: "\f101";
+}
+.flaticon-close-1:before {
+    content: "\f102";
+}
+.flaticon-search:before {
+    content: "\f103";
+}
+.flaticon-search-interface-symbol:before {
+    content: "\f104";
+}
+.flaticon-loupe:before {
+    content: "\f105";
+}
+.flaticon-budgeting:before {
+    content: "\f106";
+}
+.flaticon-budget-1:before {
+    content: "\f107";
+}
+.flaticon-home:before {
+    content: "\f108";
+}
+.flaticon-house-1:before {
+    content: "\f109";
+}
+.flaticon-home-icon-silhouette:before {
+    content: "\f10a";
+}
+.flaticon-home-1:before {
+    content: "\f10b";
+}
+.flaticon-logout-1:before {
+    content: "\f10c";
+}
+.flaticon-logout-2:before {
+    content: "\f10d";
+}
+.flaticon-log-out:before {
+    content: "\f10e";
+}
+.flaticon-logout-3:before {
+    content: "\f10f";
+}

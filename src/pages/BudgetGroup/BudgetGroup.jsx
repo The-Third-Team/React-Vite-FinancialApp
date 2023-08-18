@@ -14,6 +14,11 @@ export default function BudgetGroup({ group, groupName, userBudgets }) {
     data.push(draft);
   })
 
+  const handleOnSave = () => {
+    // onSave(editedData);
+    return
+  }
+
   return (
     <>
         <div className="border-2 rounded-md p-2 mx-2 my-1">

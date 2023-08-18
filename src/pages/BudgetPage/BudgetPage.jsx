@@ -40,23 +40,23 @@ export default function BudgetPage({categories}) {
 
     // if user does not have a budget, immediately load the budget onboarding page
 
-    useEffect(() => {
-        getUserBudget()
-    }, [])
+    // useEffect(() => {
+    //     getUserBudget()
+    // }, [])
 
-    const getUserBudget = async () => {
-        try {
-            const userBudget = await budgetsAPI.getUserBudget(user.id)
-            console.log(userBudget)
-            if (userBudget.length === 0) {
-                setNewBudget(true)
-            }
-            //console.log(userBudget)
-            setBudget(userBudget)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    // const getUserBudget = async () => {
+    //     try {
+    //         const userBudget = await budgetsAPI.getUserBudget(user.id)
+    //         console.log(userBudget)
+    //         if (userBudget.length === 0) {
+    //             setNewBudget(true)
+    //         }
+    //         //console.log(userBudget)
+    //         setBudget(userBudget)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
   
     const createUserBudget = async (budgetData) => {
         console.log(budgetData)
@@ -88,7 +88,7 @@ export default function BudgetPage({categories}) {
   return (
     <>
     {/* budget.length == 0  */}
-    {true ?
+    {budget.length > 0 ?
         <BudgetOverviewPage budget={budget}/>
         :
         <BudgetOnboardingPage budget={budget} categories={categories} createUserBudget={createUserBudget}/>
