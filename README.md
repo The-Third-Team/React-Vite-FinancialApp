@@ -60,9 +60,9 @@ As our team size fluctuated, so did our determination adapting like the leaves t
 
 **UX Team:**
 
-[Sierra Coleman](https://www.linkedin.com/in/slaurencoleman/) : [portfolio](www.createherlauren.com)
+[Sierra Coleman](https://www.linkedin.com/in/slaurencoleman/) : [portfolio](https://www.createherlauren.com)
 
-[Darran Moore](https://www.linkedin.com/in/darranmoore/) : [portfolio](www.darranmoore.com)
+[Darran Moore](https://www.linkedin.com/in/darranmoore/) : [portfolio](https://www.darranmoore.com)
 
 **Software Engineering Team:**
 
@@ -70,7 +70,7 @@ As our team size fluctuated, so did our determination adapting like the leaves t
 
 [Fredy Laksmono](https://www.linkedin.com/in/fredy-laksmono/) : [portfolio](http://www.flaksmono.com) : [github](https://github.com/fredy-laksmono)
 
-[Dustin Portell](https://www.linkedin.com/in/dustinjs/) : [portfolio](www.dustinjs.dev) : [github](https://github.com/Scynes) 
+[Dustin Portell](https://www.linkedin.com/in/dustinjs/) : [portfolio](https://www.dustinjs.dev) : [github](https://github.com/Scynes) 
 
 [Yuta Okkotsu](https://www.linkedin.com/in/yutaokkotsu/) : [portfolio](https://www.yutaokkotsu.com)  : [github](https://github.com/yutaokkots)
 
