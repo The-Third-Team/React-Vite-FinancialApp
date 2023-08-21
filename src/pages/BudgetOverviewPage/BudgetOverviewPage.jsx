@@ -10,29 +10,51 @@ import * as accountsAPI from "../../utilities/accounts-api"
 import IncomeDisplayComp from '../IncomeDisplayComp/IncomeDisplayComp'
 import PieDataChart from '../../components/PieDataChart/PieDataChart'
 
+const months = {
+  "1": "Jan.",
+  "2": "Feb.",
+  "3": "Mar.",
+  "4": "Apr.",
+  "5": "May.",
+  "6": "Jun.",
+  "7": "Jul.",
+  "8": "Aug.",
+  "9": "Sep.",
+  "10": "Oct.",
+  "11": "Nov.",
+  "12": "Dec."
+}
+
 export default function BudgetOverviewPage() {
-    const currentDate = new Date()
+    const currentDate = new Date();
     const currentMonth = currentDate.getMonth() + 1;
     const currentYear = currentDate.getYear();
-    const {user, setUser} = useContext(AuthContext)
-    const [userBudgets, setUserBudgets] = useState([])
-    const [income, setIncome] = useState([])
-    const [budgetUpdate, setBudgetUpdate] = useState(false)
+    const {user, setUser} = useContext(AuthContext);
+    const [userBudgets, setUserBudgets] = useState([]);
+    const [income, setIncome] = useState([]);
+    const [budgetUpdate, setBudgetUpdate] = useState(false);
 
     // State change when budget is updated via a "put" request; detected via the useEffect() on this Page. 
     const updateBudgetInformation = () => {
-        setBudgetUpdate(!budgetUpdate)
+        setBudgetUpdate(!budgetUpdate);
     }
 
     // 'filterIncome()' returns an array with current month's income 
     const filterIncome = (incomeArray) => {
-      const filteredIncomeArr = incomeArray.filter((income) => {
-        const createdDate = new Date(income.date)
-        const createdMonth = createdDate.getMonth() + 1;
-        const createdYear = createdDate.getYear();
-        return createdMonth === currentMonth && createdYear === currentYear
-      })
-      return filteredIncomeArr
+        const filteredIncomeArr = incomeArray.filter((income) => {
+            const createdDate = new Date(income.date);
+            const createdMonth = createdDate.getMonth() + 1;
+            const createdYear = createdDate.getYear();
+            return createdMonth === currentMonth && createdYear === currentYear;
+        })
+        for (let income of filteredIncomeArr){
+            let date = new Date(income.date)
+            const month = months[date.getMonth() + 1]
+            const day = date.getDay()
+            const year = date.getFullYear()
+            income["printedDate"]= `${month} ${day}, ${year}`
+        }
+        return filteredIncomeArr;
     }
 
     useEffect(() => {
@@ -44,18 +66,18 @@ export default function BudgetOverviewPage() {
                     let category;
                     response.forEach((res) => {
                         if (res.name === "Income"){
-                            category = res.id
+                            category = res.id;
                         }
                     })
-                    return category
+                    return category;
                 }).then((categoryId) => {
-                    return accountsAPI.getUserIncome(user.id, categoryId)
+                    return accountsAPI.getUserIncome(user.id, categoryId);
                 }).then((incomeArr) => {
-                    return filterIncome(incomeArr)
-                }).then((response) =>{
-                    setIncome(response)
+                    return filterIncome(incomeArr);
+                }).then((response) => {
+                    setIncome(response);
                 }).catch((error) => {
-                    console.log(error)
+                    console.log(error);
                 })
         }
         // Retrieves user's budget from budget model and saves as object ('budgetObj').
@@ -106,7 +128,7 @@ export default function BudgetOverviewPage() {
             <div className='ml-[15vw] w-[85vw] '>
                 <div className='fixed top-[-700px] w-[1000px] h-[1000px] bg-[#B0E6DB] rounded-[50%] z-[-10]'></div>
                 <div className='flex flex-col items-center '>
-                    <PageHeader>My budget</PageHeader>
+                    <PageHeader>My Budget Buddy</PageHeader>
                     <div className="md:grid-cols-12 grid gap-2">
                         <div className=" sm:col-span-5 sm:order-1">
                             <div className=" text-center font-bold text-xl pb-1">Analysis</div>
@@ -132,10 +154,10 @@ export default function BudgetOverviewPage() {
                         <div className="md:w-200 sm:col-span-7 sm:order-2">
                             <div className="w-full ">
                                 <div
-                                    className="grid grid-cols-3  md:grid-cols-12 md:justify-items-start px-3 justify-items-end font-bold md:text-xl">
-                                        <div className="col-span-1 md:col-span-4">Expenses</div>
-                                        <div className="col-span-1 md:col-span-4">Budget</div>
-                                        <div className="col-span-1 md:col-span-4">Remaining</div>
+                                    className="grid grid-cols-3  md:grid-cols-3 md:justify-items-end px-3 justify-items-end font-bold md:text-xl">
+                                        <div className="col-span-1 md:col-span-1 justify-self-start">Expenses</div>
+                                        <div className="col-span-1 md:col-span-1">Budget</div>
+                                        <div className="col-span-1 md:col-span-1">Remaining</div>
                                 </div>
                             </div>            
                             <div>
