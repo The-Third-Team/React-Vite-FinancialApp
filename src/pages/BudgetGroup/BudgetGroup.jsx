@@ -18,15 +18,6 @@ export default function BudgetGroup({ groupName, group, groupidx, userBudgets, u
         })
   }
 
-//   userBudgets[groupName].forEach(category => {
-//     const draft = {
-//       title: category.name,
-//       budget: category.budget,
-//       id: category.id
-//     }
-//     data.push(draft);
-//   })
-
   group.forEach(category => {
     const draft = {
       title: category.name,
@@ -35,8 +26,6 @@ export default function BudgetGroup({ groupName, group, groupidx, userBudgets, u
     }
     data.push(draft);
   })
-
-  //const sortedData = data.slice().sort((a,b) => a.id - b.id)
 
   const handleOnSave = (update) => {
     const budgetUpdate = {}
@@ -54,11 +43,9 @@ export default function BudgetGroup({ groupName, group, groupidx, userBudgets, u
     updateBudget(budgetUpdate)
   }
 
-  console.log(colors[groupidx])
   return (
     <>
         <div className=" rounded-md p-2 mx-2 my-1 bg-white shadow-lg">
-
             <div className="rounded-md" style={{backgroundColor:`${colors[groupidx]}`}}>
                 <div className="text-md font-bold flex justify-start">
                   <div className="flex items-center"><span className="ml-2 text-white">{groupName}</span></div>
@@ -69,7 +56,6 @@ export default function BudgetGroup({ groupName, group, groupidx, userBudgets, u
                 {group.map((category, idx) => 
                     <BudgetComp key={idx} category={category} userBudgets={userBudgets} />)}
             </div>
-
         </div>
     </>
   )

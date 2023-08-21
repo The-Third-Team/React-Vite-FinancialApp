@@ -70,7 +70,7 @@ As our team size fluctuated, so did our determination adapting like the leaves t
 
 [Fredy Laksmono](https://www.linkedin.com/in/fredy-laksmono/) : [portfolio](http://www.flaksmono.com) : [github](https://github.com/fredy-laksmono)
 
-[Dustin Portell](https://www.linkedin.com/in/dustinjs/) : [portfolio](https://www.dustinjs.dev) : [github](https://github.com/Scynes) 
+[Dustin Greyfield](https://www.linkedin.com/in/dustinjs/) : [portfolio](https://www.dustinjs.dev) : [github](https://github.com/Scynes) 
 
 [Yuta Okkotsu](https://www.linkedin.com/in/yutaokkotsu/) : [portfolio](https://www.yutaokkotsu.com)  : [github](https://github.com/yutaokkots)
 

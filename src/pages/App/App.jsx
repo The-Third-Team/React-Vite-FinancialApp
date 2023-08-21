@@ -25,7 +25,6 @@ export default function App() {
 
   const getCategories = async () => {
     const fetchedCategories = await categoriesAPI.getAllCategories();
-    console.log(fetchedCategories)
     setCategories(fetchedCategories)
   }
 
