@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://newleafbe-d8d834bde5db.herokuapp.com/',
+        target: 'http://localhost:3001',
         changeOrigin: true,
       },
     }
