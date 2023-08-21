@@ -16,17 +16,6 @@ export const AuthContext = createContext();
 
 export default function App() {
   const [user, setUser] = useState(usersService.getUser());
-  const [categories, setCategories] = useState([])
-
-  useEffect(() => {
-    getCategories();
-    // getUserBudget();
-  }, [])
-
-  const getCategories = async () => {
-    const fetchedCategories = await categoriesAPI.getAllCategories();
-    setCategories(fetchedCategories)
-  }
 
   return (
     <>
@@ -35,7 +24,7 @@ export default function App() {
           <>
             <Routes>
                 <Route path="/" element={<Dashboard />}/>
-                <Route path="/budget" element={<BudgetPage categories={categories}/>}/>
+                <Route path="/budget" element={<BudgetPage />}/>
             </Routes>
           </>
           :
