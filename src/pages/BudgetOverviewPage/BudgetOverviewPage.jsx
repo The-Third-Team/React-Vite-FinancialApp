@@ -15,13 +15,12 @@ export default function BudgetOverviewPage() {
     const currentDate = new Date()
     const currentMonth = currentDate.getMonth() + 1;
     const currentYear = currentDate.getYear();
-
     const {user, setUser} = useContext(AuthContext)
     const [userBudgets, setUserBudgets] = useState([])
     const [income, setIncome] = useState([])
     const [budgetUpdate, setBudgetUpdate] = useState(false)
 
-    // state change when budget is updated via a "put" request
+    // State change when budget is updated via a "put" request; detected via the useEffect() on this Page. 
     const updateBudgetInformation = () => {
         setBudgetUpdate(!budgetUpdate)
     }
@@ -42,7 +41,7 @@ export default function BudgetOverviewPage() {
         // (2) Then using the categoryId assocaited with 'income', retrieves income information for user
         async function getIncomeBalance(){
             await categoriesAPI.getAllCategories()
-                .then((response)=>{
+                .then((response) => {
                     let category;
                     response.forEach((res) => {
                         if (res.name === "Income"){
@@ -54,7 +53,7 @@ export default function BudgetOverviewPage() {
                     return accountsAPI.getUserIncome(user.id, categoryId)
                 }).then((incomeArr) => {
                     return filterIncome(incomeArr)
-                }).then((response)=>{
+                }).then((response) =>{
                     setIncome(response)
                 }).catch((error) => {
                     console.log(error)
@@ -110,13 +109,18 @@ export default function BudgetOverviewPage() {
                 <div className='flex flex-col items-center '>
                     <PageHeader>My budget</PageHeader>
                     <div className="md:w-200">
-                        <div className=" border-gray-100 rounded-md shadow-lg">
-                            <PieDataChart data={ pieData }/>
+                        <div className="rounded-md border-gray-100 shadow-lg pt-2  bg-white">
+                            <h3 className="font-bold text-center mt-2">
+                                Budget Breakdown
+                            </h3>
+                            <div className="">
+                                <PieDataChart data={ pieData }/>
+                            </div>
                         </div>
-                        <h3 className="font-bold text-center">
-                            Income
-                        </h3>
-                        <div className="rounded-md border-gray-100 bg-white  p-5 m-2 shadow-lg">
+                        <div className="rounded-md border-gray-100 bg-white p-3 m-2 shadow-lg">
+                            <h3 className="font-bold text-center pb-2">
+                                Income
+                            </h3>
                             <div className="flex flex-row justify-between ">
                                 {income.map((income, idx) => 
                                     <IncomeDisplayComp income={income} key={idx}/>
@@ -125,10 +129,10 @@ export default function BudgetOverviewPage() {
                         </div>
                         <div className="w-full ">
                             <div
-                              className="grid grid-cols-3  md:grid-cols-12 md:justify-items-start px-2 justify-items-end font-bold md:text-xl">
-                                <div className="col-span-1 md:col-span-4">Expenses</div>
-                                <div className="col-span-1 md:col-span-4">Budget</div>
-                                <div className="col-span-1 md:col-span-4">Remaining</div>
+                                className="grid grid-cols-3  md:grid-cols-12 md:justify-items-start px-3 justify-items-end font-bold md:text-xl">
+                                    <div className="col-span-1 md:col-span-4">Expenses</div>
+                                    <div className="col-span-1 md:col-span-4">Budget</div>
+                                    <div className="col-span-1 md:col-span-4">Remaining</div>
                             </div>
                         </div>            
                         <div>
