@@ -10,7 +10,6 @@ import * as accountsAPI from "../../utilities/accounts-api"
 import IncomeDisplayComp from '../IncomeDisplayComp/IncomeDisplayComp'
 import PieDataChart from '../../components/PieDataChart/PieDataChart'
 
-
 export default function BudgetOverviewPage() {
     const currentDate = new Date()
     const currentMonth = currentDate.getMonth() + 1;
@@ -108,37 +107,42 @@ export default function BudgetOverviewPage() {
                 <div className='fixed top-[-700px] w-[1000px] h-[1000px] bg-[#B0E6DB] rounded-[50%] z-[-10]'></div>
                 <div className='flex flex-col items-center '>
                     <PageHeader>My budget</PageHeader>
-                    <div className="md:w-200">
-                        <div className="rounded-md border-gray-100 shadow-lg pt-2  bg-white">
-                            <h3 className="font-bold text-center mt-2">
-                                Budget Breakdown
-                            </h3>
-                            <div className="">
-                                <PieDataChart data={ pieData }/>
+                    <div className="md:grid-cols-12 grid gap-2">
+                        <div className=" sm:col-span-5 sm:order-1">
+                            <div className=" text-center font-bold text-xl pb-1">Analysis</div>
+                            <div className="rounded-md border-gray-100 shadow-lg pt-2  bg-white">
+                                <h3 className="font-bold text-center mt-2">
+                                    Budget Breakdown
+                                </h3>
+                                <div className="">
+                                    <PieDataChart data={ pieData }/>
+                                </div>
+                            </div>
+                            <div className="rounded-md border-gray-100 bg-white p-3 m-2 shadow-lg">
+                                <h3 className="font-bold text-center pb-2">
+                                    Income
+                                </h3>
+                                <div className="flex flex-row justify-between ">
+                                    {income.map((income, idx) => 
+                                        <IncomeDisplayComp income={income} key={idx}/>
+                                    )}
+                                </div>
                             </div>
                         </div>
-                        <div className="rounded-md border-gray-100 bg-white p-3 m-2 shadow-lg">
-                            <h3 className="font-bold text-center pb-2">
-                                Income
-                            </h3>
-                            <div className="flex flex-row justify-between ">
-                                {income.map((income, idx) => 
-                                    <IncomeDisplayComp income={income} key={idx}/>
-                                )}
+                        <div className="md:w-200 sm:col-span-7 sm:order-2">
+                            <div className="w-full ">
+                                <div
+                                    className="grid grid-cols-3  md:grid-cols-12 md:justify-items-start px-3 justify-items-end font-bold md:text-xl">
+                                        <div className="col-span-1 md:col-span-4">Expenses</div>
+                                        <div className="col-span-1 md:col-span-4">Budget</div>
+                                        <div className="col-span-1 md:col-span-4">Remaining</div>
+                                </div>
+                            </div>            
+                            <div>
+                                {Object.entries(userBudgets).map(([key, value], idx) => 
+                                    <BudgetGroup groupName={key} group={value} groupidx={idx} userBudgets={userBudgets} updateBudgetInformation={updateBudgetInformation} key={idx} />
+                                )}  
                             </div>
-                        </div>
-                        <div className="w-full ">
-                            <div
-                                className="grid grid-cols-3  md:grid-cols-12 md:justify-items-start px-3 justify-items-end font-bold md:text-xl">
-                                    <div className="col-span-1 md:col-span-4">Expenses</div>
-                                    <div className="col-span-1 md:col-span-4">Budget</div>
-                                    <div className="col-span-1 md:col-span-4">Remaining</div>
-                            </div>
-                        </div>            
-                        <div>
-                            {Object.entries(userBudgets).map(([key, value], idx) => 
-                                <BudgetGroup groupName={key} group={value} groupidx={idx} userBudgets={userBudgets} updateBudgetInformation={updateBudgetInformation} key={idx} />
-                            )}  
                         </div>
                     </div>
                 </div>
