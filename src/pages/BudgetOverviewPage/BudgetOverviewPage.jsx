@@ -1,5 +1,4 @@
 import React, {useEffect, useState, useContext} from 'react'
-import BudgetComp from '../../components/BudgetComp/BudgetComp'
 import BudgetGroup from '../BudgetGroup/BudgetGroup'
 import Navbar from '../../components/NavBar/Navbar'
 import PageHeader from '../../components/PageHeader/PageHeader'
