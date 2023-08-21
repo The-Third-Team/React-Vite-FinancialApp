@@ -48,7 +48,7 @@ export default function BudgetGroup({ groupName, group, groupidx, userBudgets, u
                 <div className="rounded-md" style={{backgroundColor:`${colors[groupidx]}`}}>
                     <div className="text-md font-bold flex justify-start">
                         <div className="flex items-center"><span className="ml-2 text-white">{groupName}</span></div>
-                        <div className="content-start "><EditField category={ groupName } data={ data } onSave={handleOnSave} /></div>
+                        <div className="content-start"><EditField category={ groupName } data={ data } onSave={handleOnSave} /></div>
                     </div>
                 </div>
                 <div className="">
