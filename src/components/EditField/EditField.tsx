@@ -37,7 +37,7 @@ const EditField = ({ category, data, onSave }: Properties) => {
     return (
         <>
             <Button onClick={ () => props.setOpenModal('pop-up') } className={'w-[2rem] border-none text-black'}>
-                <MdModeEditOutline size={ 20 } />
+                <MdModeEditOutline size={ 20 }  style={{color: 'white'}}/>
             </Button>
             <Modal className={ 'bg-indigo-950/50' } show={props.openModal === 'pop-up'} size="sm" popup onClose={() => props.setOpenModal(undefined)}>
                 <Modal.Header />

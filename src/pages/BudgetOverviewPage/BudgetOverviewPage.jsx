@@ -8,20 +8,21 @@ import { AuthContext } from '../App/App'
 import * as accountsAPI from "../../utilities/accounts-api"
 import IncomeDisplayComp from '../IncomeDisplayComp/IncomeDisplayComp'
 import PieDataChart from '../../components/PieDataChart/PieDataChart'
+import { MdOutlineCalendarMonth } from 'react-icons/md';
 
 const months = {
-  "1": "Jan.",
-  "2": "Feb.",
-  "3": "Mar.",
-  "4": "Apr.",
-  "5": "May.",
-  "6": "Jun.",
-  "7": "Jul.",
-  "8": "Aug.",
-  "9": "Sep.",
-  "10": "Oct.",
-  "11": "Nov.",
-  "12": "Dec."
+  "1": "Jan",
+  "2": "Feb",
+  "3": "Mar",
+  "4": "Apr",
+  "5": "May",
+  "6": "Jun",
+  "7": "Jul",
+  "8": "Aug",
+  "9": "Sep",
+  "10": "Oct",
+  "11": "Nov",
+  "12": "Dec"
 }
 
 export default function BudgetOverviewPage() {
@@ -32,6 +33,7 @@ export default function BudgetOverviewPage() {
     const [userBudgets, setUserBudgets] = useState([]);
     const [income, setIncome] = useState([]);
     const [budgetUpdate, setBudgetUpdate] = useState(false);
+    const [currentMonthYear, setCurrentMonthYear] = useState("")
 
     // State change when budget is updated via a "put" request; detected via the useEffect() on this Page. 
     const updateBudgetInformation = () => {
@@ -51,7 +53,8 @@ export default function BudgetOverviewPage() {
             const month = months[date.getMonth() + 1]
             const day = date.getDay()
             const year = date.getFullYear()
-            income["printedDate"]= `${month} ${day}, ${year}`
+            income["printedDate"]= `${month}. ${day}, ${year}`
+            setCurrentMonthYear(`${month} ${year}`)
         }
         return filteredIncomeArr;
     }
@@ -126,12 +129,19 @@ export default function BudgetOverviewPage() {
             <Navbar/>
             <div className='ml-[15vw] w-[85vw] '>
                 <div className='fixed top-[-700px] w-[1000px] h-[1000px] bg-[#B0E6DB] rounded-[50%] z-[-10]'></div>
-                <div className='flex flex-col items-center '>
-                    <PageHeader>My Budget Buddy</PageHeader>
+                <div className='flex flex-col items-center'>
+                    {/* <PageHeader>{user.firstName}'s' Budget Buddy</PageHeader> */}
+                    <div className="bg-white pt-5 px-5 mb-8 text-[#336E2A] shadow-lg backdrop-blur-xl opacity-95  bg-slate-100/30 flex grow w-full ">
+                        <PageHeader>{user.firstName}'s Budget Buddy</PageHeader>
+                    </div>
                     <div className="md:grid-cols-12 grid gap-2">
-                        <div className=" sm:col-span-5 sm:order-1">
-                            <div className=" text-center font-bold text-xl pb-1">Analysis</div>
-                            <div className="rounded-md border-gray-100 shadow-lg pt-2  bg-white">
+                        <div className=" md:col-span-5 md:order-1">
+                            <div className="rounded-md border-gray-100 shadow-lg bg-white md:mt-8">
+                                <div className="bg-[#336E2A] rounded-t-md text-left text-white font-bold text-xl px-3 py-2 flex flex-row ">
+                                    <div className="flex items-center">{ <MdOutlineCalendarMonth/> }</div>
+                                    <div className="flex items-center">&nbsp;</div>
+                                    <div className="flex items-center">{ currentMonthYear }</div>
+                                </div>
                                 <h3 className="font-bold text-center mt-2">
                                     Budget Breakdown
                                 </h3>
@@ -139,7 +149,7 @@ export default function BudgetOverviewPage() {
                                     <PieDataChart data={ pieData }/>
                                 </div>
                             </div>
-                            <div className="rounded-md border-gray-100 bg-white p-3 m-2 shadow-lg">
+                            <div className="rounded-md border-gray-100 bg-white p-3 m-2 shadow-lg backdrop-blur-xl opacity-98  bg-slate-100/60">
                                 <h3 className="font-bold text-center pb-2">
                                     Income
                                 </h3>
@@ -150,10 +160,10 @@ export default function BudgetOverviewPage() {
                                 </div>
                             </div>
                         </div>
-                        <div className="md:w-200 sm:col-span-7 sm:order-2">
+                        <div className="md:w-200 md:col-span-7 md:order-2">
                             <div className="w-full ">
                                 <div
-                                    className="grid grid-cols-3  md:grid-cols-3 md:justify-items-end px-3 justify-items-end font-bold md:text-xl">
+                                    className="grid grid-cols-3 text-[#336E2A] md:grid-cols-3 md:justify-items-end px-3 justify-items-end font-bold md:text-xl">
                                         <div className="col-span-1 md:col-span-1 justify-self-start">Expenses</div>
                                         <div className="col-span-1 md:col-span-1">Budget</div>
                                         <div className="col-span-1 md:col-span-1">Remaining</div>
