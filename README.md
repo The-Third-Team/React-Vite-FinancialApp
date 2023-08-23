@@ -45,10 +45,10 @@ The visuals help to intuitively manage your budget, ensuring that your spending 
 <table class="images" width="100%"  style="border:0px; width:100%;">
     <tr style="border: 0px;">
         <td width="33%" style="border:0px; width:33.33%">
-            <img src="./public/iPhone X.png" />
+            <img src="./public/iPhoneX3.png" />
         </td>
         <td width="33%" style="border:0px; width:33.33%">
-            <img src="./public/iPhone%2014%20Pro.png" />
+            <img src="./public/iPhone14Pro2.png" />
         </td>
         <td width="33%" style="border:0px; width:33.33%">
             <img src="./public/Female%20hand%20holding%20iPhone%2014%20Pro%20mockup%20(Mockuuups%20Studio).png" />
