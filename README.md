@@ -21,7 +21,7 @@ A banking app add-on to help users budget.
 
 ## **About**
 
-New Leaf Bank’s budgeting app was created during a 4-day hackathon in August of 2023, by UX Designers, [Sierra Coleman](https://www.linkedin.com/in/slaurencoleman/) and [Darran Moore](https://www.linkedin.com/in/darranmoore/), and Software Engineers, [Vilem McKael](https://www.linkedin.com/in/vilem-mckael/), [Fredy Laksmono](https://www.linkedin.com/in/fredy-laksmono/), [Dustin Portell](https://www.linkedin.com/in/dustinjs/), and [Yuta Okkotsu](https://www.linkedin.com/in/yutaokkotsu/). 
+New Leaf Bank’s budgeting app was created during a 4-day hackathon in August of 2023, by UX Designers, [Sierra Coleman](https://www.linkedin.com/in/slaurencoleman/) and [Darran Moore](https://www.linkedin.com/in/darranmoore/), and Software Engineers, [Vilem McKael](https://www.linkedin.com/in/vilem-mckael/), [Fredy Laksmono](https://www.linkedin.com/in/fredy-laksmono/), [Dustin Greyfield](https://www.linkedin.com/in/dustinjs/), and [Yuta Okkotsu](https://www.linkedin.com/in/yutaokkotsu/). 
 
 ## **Purpose**
 
