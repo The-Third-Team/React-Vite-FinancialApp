@@ -42,7 +42,7 @@ The visuals help to intuitively manage your budget, ensuring that your spending 
     </tr>
 </table>
 
-<table class="images" width="100%"  style="border:0px; width:100%;">
+<table class="images" width="100%"  style="border:0px; border-radius:6px; width:100%;">
     <tr style="border: 0px;">
         <td width="33%" style="border:0px; width:33.33%">
             <img src="./public/iPhoneX3.png" />
