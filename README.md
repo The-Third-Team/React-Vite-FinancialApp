@@ -31,11 +31,31 @@ The visuals help to intuitively manage your budget, ensuring that your spending 
 
 ## **Visual Mockups**
 
-![image](/public/iPhone%20X.png)
+<table class="images" width="100%"  style="border:0px solid white; width:100%;">
+    <tr style="border: 0px;">
+        <td width="33%" style="border:0px; width:33%">
+            <img src="./public/newLeaf_screenshots.jpg" />
+        </td>
+        <td width="66%" style="border:0px; width:66.66%">
+            <img src="./public/newLeaf_screenshots_2.jpg" />
+        </td>
+    </tr>
+</table>
 
-![image](/public/iPhone%2014%20Pro.png)
+<table class="images" width="100%"  style="border:0px solid white; width:100%;">
+    <tr style="border: 0px;">
+        <td width="33%" style="border:0px; width:33.33%">
+            <img src="./public/iPhone X.png" />
+        </td>
+        <td width="33%" style="border:0px; width:33.33%">
+            <img src="./public/iPhone%2014%20Pro.png" />
+        </td>
+        <td width="33%" style="border:0px; width:33.33%">
+            <img src="./public/Female%20hand%20holding%20iPhone%2014%20Pro%20mockup%20(Mockuuups%20Studio).png" />
+        </td>
+    </tr>
+</table>
 
-<img src="./public/Female%20hand%20holding%20iPhone%2014%20Pro%20mockup%20(Mockuuups%20Studio).png" width="300"/>
 
 ## **Github**
 
